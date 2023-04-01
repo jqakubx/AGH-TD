@@ -15,7 +15,11 @@ public class TileScript : MonoBehaviour
     
     private Color32 emptyColor = new Color32(96, 255, 90, 255);
 
-    private SpriteRenderer SpriteRenderer;
+    private SpriteRenderer spriteRenderer;
+
+    public bool Walkable { get; set; }
+    
+    private GameObject tower;
     
     
     public Vector2 WorldPosition
@@ -29,7 +33,7 @@ public class TileScript : MonoBehaviour
 
     void Start()
     {
-        SpriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -38,6 +42,7 @@ public class TileScript : MonoBehaviour
 
     public void Setup(Point gridPosition, Vector3 worldPos, Transform parent)
     {
+        Walkable = true;
         IsEmpty = true;
         this.GridPosition = gridPosition;
         transform.position = worldPos;
@@ -53,12 +58,12 @@ public class TileScript : MonoBehaviour
             {
                 ColorTile(emptyColor);
             }
-            if (!IsEmpty)
+            else
             {
                 ColorTile(fullColor);
-                
             }
-            else if (Input.GetMouseButtonDown(0))
+            
+            if (IsEmpty && Input.GetMouseButtonDown(0))
             {
                 PlaceTower();
             }
@@ -72,11 +77,12 @@ public class TileScript : MonoBehaviour
 
     private void PlaceTower()
     {
-        GameObject tower = Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab, transform.position, Quaternion.identity);
+        tower = Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab, transform.position, Quaternion.identity);
         tower.GetComponent<SpriteRenderer>().sortingOrder = GridPosition.Y;
         
         tower.transform.SetParent(transform);
 
+        Walkable = false;
         IsEmpty = false;
         ColorTile(Color.white);
         GameManager.Instance.BuyTower();
@@ -84,6 +90,11 @@ public class TileScript : MonoBehaviour
 
     private void ColorTile(Color newColor)
     {
-        SpriteRenderer.color = newColor;
+        spriteRenderer.color = newColor;
+
+        if (!IsEmpty)
+        {
+            tower.GetComponent<SpriteRenderer>().color = newColor;
+        }
     }
 }

@@ -16,7 +16,9 @@ public class LevelManager : Singleton<LevelManager>
 
     [SerializeField]
     private GameObject firstPortalPrefab, secondPortalPrefab;
-    
+
+    private Point mapSize;
+
     public Dictionary<Point, TileScript> Tiles { get; set; }
     
     public float TileSize => tilePrefabs[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x;
@@ -39,6 +41,9 @@ public class LevelManager : Singleton<LevelManager>
         Tiles = new Dictionary<Point, TileScript>();
         
         string[] mapData = ReadLevelTest();
+
+        mapSize = new Point(mapData[0].ToCharArray().Length, mapData.Length);
+
         int mapXSize = mapData[0].ToCharArray().Length;
         int mapYSize = mapData.Length;
 
@@ -93,4 +98,8 @@ public class LevelManager : Singleton<LevelManager>
         Instantiate(secondPortalPrefab, Tiles[secondSpawn].GetComponent<TileScript>().WorldPosition,Quaternion.identity);
     }
         
+    public bool InBounds(Point position)
+    {
+        return position.X >= 0 && position.Y >= 0 && position.X < mapSize.X && position.Y < mapSize.Y;
+    }
 }

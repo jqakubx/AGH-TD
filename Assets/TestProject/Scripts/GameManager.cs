@@ -29,7 +29,7 @@ public class GameManager : Singleton<GameManager>
     
     void Start()
     {
-        Currency = 3;
+        Currency = 20;
     }
 
     void Update()
