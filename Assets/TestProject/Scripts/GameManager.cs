@@ -12,6 +12,8 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField]
     private Text currencyTxt;
+    
+    public ObjectPool Pool { get; set; }
 
     public int Currency
     {
@@ -26,10 +28,15 @@ public class GameManager : Singleton<GameManager>
             this.currencyTxt.text = value.ToString() + "  <color=lime>$</color>";
         }
     }
+
+    private void Awake()
+    {
+        Pool = GetComponent<ObjectPool>();
+    }
     
     void Start()
     {
-        Currency = 20;
+        Currency = 120;
     }
 
     void Update()
@@ -61,5 +68,31 @@ public class GameManager : Singleton<GameManager>
         {
             Hover.Instance.Deactivate();
         }
+    }
+
+    public void StartWave()
+    {
+        StartCoroutine(SpawnWave());
+    }
+
+    private IEnumerator SpawnWave()
+    {
+        LevelManager.Instance.GeneratePath();
+        
+        int enemyIndex = Random.Range(0, 1);
+
+        string type = string.Empty;
+
+        switch (enemyIndex)
+        {
+            case 0:
+                type = "FirstEnemy";
+                break;
+        }
+
+        EnemyShip enemy = Pool.GetObject(type).GetComponent<EnemyShip>();
+        enemy.Spawn();
+        
+        yield return new WaitForSeconds(2.5f);
     }
 }

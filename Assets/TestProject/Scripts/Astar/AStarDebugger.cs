@@ -21,14 +21,14 @@ public class AStarDebugger : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        ClickTile();
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            AStar.GetPath(start.GridPosition, goal.GridPosition);
-        }
-    }
+    // void Update()
+    // {
+    //     ClickTile();
+    //     if (Input.GetKeyDown(KeyCode.Space))
+    //     {
+    //         AStar.GetPath(start.GridPosition, goal.GridPosition);
+    //     }
+    // }
 
     private void ClickTile()
     {
@@ -71,7 +71,7 @@ public class AStarDebugger : MonoBehaviour
 
         foreach (Node node in closedList)
         {
-            if (node.TileRef != start && node.TileRef != goal)
+            if (node.TileRef != start && node.TileRef != goal && !path.Contains(node))
             {
                 CreateDebugTile(node.TileRef.WorldPosition, Color.blue, node);
             }

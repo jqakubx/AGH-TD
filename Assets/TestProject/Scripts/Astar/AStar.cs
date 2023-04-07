@@ -17,7 +17,7 @@ public static class AStar
         }
     }
 
-    public static void GetPath(Point start, Point goal)
+    public static Stack<Node> GetPath(Point start, Point goal)
     {
         // TODO definitely take a look at this algo and optimize stuff once we are done with this tut
         // left as is for now for consistency
@@ -96,7 +96,10 @@ public static class AStar
             }
         }
 
-        GameObject.Find("AStarDebugger").GetComponent<AStarDebugger>().DebugPath(openList, closedList, finalPath);
+        return finalPath;
+
+        // DEBUG
+        // GameObject.Find("AStarDebugger").GetComponent<AStarDebugger>().DebugPath(openList, closedList, finalPath);
     }
 
     private static bool ConnectedDiagonally(Node currentNode, Node neighbour)

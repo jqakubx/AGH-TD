@@ -17,9 +17,27 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField]
     private GameObject firstPortalPrefab, secondPortalPrefab;
 
+    public Portal FirstPortal { get; set; }
+    
     private Point mapSize;
 
+    private Stack<Node> path;
+
+    public Stack<Node> Path
+    {
+        get
+        {
+            if (path == null)
+            {
+                GeneratePath();
+            }
+
+            return new Stack<Node>(new Stack<Node>(path));
+        }
+    }
+
     public Dictionary<Point, TileScript> Tiles { get; set; }
+    
     
     public float TileSize => tilePrefabs[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x;
 
@@ -90,16 +108,21 @@ public class LevelManager : Singleton<LevelManager>
     private void SpawnPortals()
     {
         firstSpawn = new Point(0, 0);
-
-        Instantiate(firstPortalPrefab, Tiles[firstSpawn].GetComponent<TileScript>().WorldPosition,Quaternion.identity);
+        GameObject tmp = (GameObject) Instantiate(firstPortalPrefab, Tiles[firstSpawn].GetComponent<TileScript>().WorldPosition,Quaternion.identity);
+        FirstPortal = tmp.GetComponent<Portal>();
+        FirstPortal.name = "FirstPortal";
         
-        secondSpawn = new Point(11, 6);
-
+        secondSpawn = new Point(6, 6);
         Instantiate(secondPortalPrefab, Tiles[secondSpawn].GetComponent<TileScript>().WorldPosition,Quaternion.identity);
     }
         
     public bool InBounds(Point position)
     {
         return position.X >= 0 && position.Y >= 0 && position.X < mapSize.X && position.Y < mapSize.Y;
+    }
+
+    public void GeneratePath()
+    {
+        path = AStar.GetPath(firstSpawn, secondSpawn);
     }
 }
