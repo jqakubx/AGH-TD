@@ -50,7 +50,7 @@ public class EnemyShip : MonoBehaviour
         IsActive = true;
         if (remove)
         {
-            Destroy(gameObject);
+            Release();
         }
     }
 
@@ -122,6 +122,16 @@ public class EnemyShip : MonoBehaviour
         if (col.tag == "SecondPortal")
         {
             StartCoroutine(Scale(new Vector3(1.0f, 1.0f), new Vector3(0.1f, 0.1f), true));
+            col.GetComponent<Portal>().Open();
+            GameManager.Instance.Lives--;
         }
+    }
+
+    private void Release()
+    {
+        IsActive = false;
+        GridPosition = LevelManager.Instance.FirstSpawn;
+        GameManager.Instance.Pool.ReleaseObject(gameObject);
+        GameManager.Instance.RemoveEnemy(this);
     }
 }

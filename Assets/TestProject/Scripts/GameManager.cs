@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
@@ -10,10 +11,37 @@ public class GameManager : Singleton<GameManager>
     
     private int currency;
 
+    private int wave = 0;
+
+    private int lives;
+
+    private bool gameOver = false;
+
+    [SerializeField]
+    private Text waveTxt;
+
     [SerializeField]
     private Text currencyTxt;
+
+    [SerializeField]
+    private Text livesTxt;
+
+    [SerializeField]
+    private GameObject waveBtn;
+
+    [SerializeField]
+    private GameObject gameOverMenu;
+
+    List<EnemyShip> activeEnemies = new List<EnemyShip>();
     
     public ObjectPool Pool { get; set; }
+
+    public bool WaveActive { 
+        get 
+        { 
+            return activeEnemies.Count > 0; 
+        } 
+    }
 
     public int Currency
     {
@@ -29,6 +57,28 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public int Lives
+    {
+        get
+        {
+            return lives;
+        }
+
+        set
+        {
+            this.lives = value;
+
+            if (lives <= 0)
+            {
+                this.lives = 0;
+                GameOver();
+            }
+
+            this.livesTxt.text = lives.ToString();
+        }
+    }
+
+
     private void Awake()
     {
         Pool = GetComponent<ObjectPool>();
@@ -36,6 +86,7 @@ public class GameManager : Singleton<GameManager>
     
     void Start()
     {
+        Lives = 3;
         Currency = 120;
     }
 
@@ -46,7 +97,7 @@ public class GameManager : Singleton<GameManager>
 
     public void PickTower(TowerButton towerButton)
     {
-        if (Currency >= towerButton.Price)
+        if (Currency >= towerButton.Price && !WaveActive)
         {
             this.ClickedBtn = towerButton;
             Hover.Instance.Activate(towerButton.Sprite);
@@ -72,27 +123,64 @@ public class GameManager : Singleton<GameManager>
 
     public void StartWave()
     {
+        wave++;
+        waveTxt.text = string.Format("Wave: <color=lime>{0}</color>", wave);
         StartCoroutine(SpawnWave());
+        waveBtn.SetActive(false);
     }
 
     private IEnumerator SpawnWave()
     {
         LevelManager.Instance.GeneratePath();
-        
-        int enemyIndex = Random.Range(0, 1);
 
-        string type = string.Empty;
-
-        switch (enemyIndex)
+        for (int i = 0; i < wave; i++)
         {
-            case 0:
-                type = "FirstEnemy";
-                break;
-        }
+            int enemyIndex = Random.Range(0, 1);
 
-        EnemyShip enemy = Pool.GetObject(type).GetComponent<EnemyShip>();
-        enemy.Spawn();
+            string type = string.Empty;
+
+            switch (enemyIndex)
+            {
+                case 0:
+                    type = "FirstEnemy";
+                    break;
+            }
+
+            EnemyShip enemy = Pool.GetObject(type).GetComponent<EnemyShip>();
+            enemy.Spawn();
+            activeEnemies.Add(enemy);
+
+            yield return new WaitForSeconds(2.5f);
+        }
         
-        yield return new WaitForSeconds(2.5f);
+    }
+
+    public void RemoveEnemy(EnemyShip enemy)
+    {
+        activeEnemies.Remove(enemy);
+        if (!WaveActive && !gameOver)
+        {
+            waveBtn.SetActive(true);
+        }
+    }
+
+    public void GameOver()
+    {
+        if (!gameOver)
+        {
+            gameOver = true;
+            gameOverMenu.SetActive(true);
+        }
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

@@ -41,6 +41,8 @@ public class LevelManager : Singleton<LevelManager>
     
     public float TileSize => tilePrefabs[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x;
 
+    public Point FirstSpawn { get => firstSpawn; private set => firstSpawn = value; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -107,12 +109,12 @@ public class LevelManager : Singleton<LevelManager>
 
     private void SpawnPortals()
     {
-        firstSpawn = new Point(0, 0);
-        GameObject tmp = (GameObject) Instantiate(firstPortalPrefab, Tiles[firstSpawn].GetComponent<TileScript>().WorldPosition,Quaternion.identity);
+        FirstSpawn = new Point(0, 0);
+        GameObject tmp = (GameObject) Instantiate(firstPortalPrefab, Tiles[FirstSpawn].GetComponent<TileScript>().WorldPosition,Quaternion.identity);
         FirstPortal = tmp.GetComponent<Portal>();
         FirstPortal.name = "FirstPortal";
         
-        secondSpawn = new Point(6, 6);
+        secondSpawn = new Point(3, 3);
         Instantiate(secondPortalPrefab, Tiles[secondSpawn].GetComponent<TileScript>().WorldPosition,Quaternion.identity);
     }
         
@@ -123,6 +125,6 @@ public class LevelManager : Singleton<LevelManager>
 
     public void GeneratePath()
     {
-        path = AStar.GetPath(firstSpawn, secondSpawn);
+        path = AStar.GetPath(FirstSpawn, secondSpawn);
     }
 }

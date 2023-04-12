@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7900323777664588968}
   - component: {fileID: 7900323777664588969}
   - component: {fileID: -4993786615673834331}
+  - component: {fileID: 3021361526905229516}
   m_Layer: 0
   m_Name: Portal 2
   m_TagString: SecondPortal
@@ -133,3 +134,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.88, y: 1.08}
   m_EdgeRadius: 0
+--- !u!114 &3021361526905229516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7900323777664588966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53c09308d21d8944da3d5b546dfb03dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
