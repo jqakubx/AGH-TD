@@ -32,6 +32,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private GameObject gameOverMenu;
 
+    private Tower selectedTower;
+
     List<EnemyShip> activeEnemies = new List<EnemyShip>();
     
     public ObjectPool Pool { get; set; }
@@ -113,6 +115,27 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void SelectTower(Tower tower)
+    {
+        if (selectedTower != null)
+        {
+            selectedTower.Select();
+        }
+        
+        selectedTower = tower;
+        selectedTower.Select();
+    }
+
+    public void DeselectTower(Tower tower)
+    {
+        if (selectedTower != null)
+        {
+            selectedTower.Select();
+        }
+
+        selectedTower = null;
+    }
+    
     private void HandleEscape()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
