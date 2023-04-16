@@ -17,6 +17,9 @@ public class Tower : MonoBehaviour
     }
 
     private Animator myAnimator;
+
+    [SerializeField]
+    private int damage;
     
     private SpriteRenderer mySpriteRenderer;
 
@@ -25,6 +28,14 @@ public class Tower : MonoBehaviour
     public EnemyShip Target
     {
         get { return target; }
+    }
+
+    public int Damage
+    {
+        get
+        {
+            return damage;
+        }
     }
 
     private Queue<EnemyShip> enemies = new Queue<EnemyShip>();
@@ -46,7 +57,6 @@ public class Tower : MonoBehaviour
     void Update()
     {
         Attack();
-        Debug.Log(target);
     }
 
     public void Select()
@@ -82,6 +92,14 @@ public class Tower : MonoBehaviour
                 
                 canAttack = false;
             }
+        }
+        else if (enemies.Count > 0)
+        {
+            target = enemies.Dequeue();
+        }
+        if (target != null && !target.Alive)
+        {
+            target = null;
         }
     }
 

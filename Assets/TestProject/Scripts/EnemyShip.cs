@@ -9,6 +9,8 @@ public class EnemyShip : MonoBehaviour
     private float speed;
 
     private Stack<Node> path;
+
+    private SpriteRenderer spriteRenderer;
     
     public Point GridPosition { get; set; }
 
@@ -17,15 +19,32 @@ public class EnemyShip : MonoBehaviour
     public bool IsActive { get; set; }
 
     private Animator myAnimator;
-    
+
+    [SerializeField]
+    private Stat health;
+
+    public bool Alive
+    {
+        get { return health.CurrentVal > 0; }
+    }
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        health.Initialize();
+    }
+
     private void Update()
     {
         Move();
     }
 
-    public void Spawn()
+    public void Spawn(int health)
     {
         transform.position = LevelManager.Instance.FirstPortal.transform.position;
+        this.health.Bar.Reset();
+        this.health.MaxVal = health;
+        this.health.CurrentVal = this.health.MaxVal;
 
         myAnimator = GetComponent<Animator>();
         StartCoroutine(Scale(new Vector3(0.1f, 0.1f), new Vector3(1.0f, 1.0f), false));
@@ -125,13 +144,34 @@ public class EnemyShip : MonoBehaviour
             col.GetComponent<Portal>().Open();
             GameManager.Instance.Lives--;
         }
+
+        if (col.tag == "Tile")
+        {
+            spriteRenderer.sortingOrder = col.GetComponent<TileScript>().GridPosition.Y;
+        }
     }
 
-    private void Release()
+    public void Release()
     {
         IsActive = false;
         GridPosition = LevelManager.Instance.FirstSpawn;
         GameManager.Instance.Pool.ReleaseObject(gameObject);
         GameManager.Instance.RemoveEnemy(this);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (IsActive)
+        {
+            health.CurrentVal -= damage;
+
+            if (health.CurrentVal <= 0)
+            {
+                GameManager.Instance.Currency += 2;
+                myAnimator.SetTrigger("Die");
+                IsActive = false;
+                GetComponent<SpriteRenderer>().sortingOrder--;
+            }
+        }
     }
 }

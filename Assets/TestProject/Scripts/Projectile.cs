@@ -7,11 +7,13 @@ public class Projectile : MonoBehaviour
     private EnemyShip target;
 
     private Tower parent;
+
+    private Animator myAnimator;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        myAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -41,6 +43,19 @@ public class Projectile : MonoBehaviour
         else if (!target.IsActive)
         {
             GameManager.Instance.Pool.ReleaseObject(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "enemy")
+        {
+            if (target.gameObject == other.gameObject)
+            {
+                target.TakeDamage(parent.Damage);
+
+                myAnimator.SetTrigger("Impact");
+            }
         }
     }
 }

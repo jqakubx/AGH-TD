@@ -17,6 +17,8 @@ public class GameManager : Singleton<GameManager>
 
     private bool gameOver = false;
 
+    private int health = 15;
+
     [SerializeField]
     private Text waveTxt;
 
@@ -170,7 +172,13 @@ public class GameManager : Singleton<GameManager>
             }
 
             EnemyShip enemy = Pool.GetObject(type).GetComponent<EnemyShip>();
-            enemy.Spawn();
+            enemy.Spawn(health);
+
+            if (wave % 3 == 0)
+            {
+                health += 5;
+            }
+
             activeEnemies.Add(enemy);
 
             yield return new WaitForSeconds(2.5f);

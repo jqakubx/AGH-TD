@@ -115,8 +115,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileType: ArrowProjectile
-  projectileSpeed: 3
-  attackCooldown: 3
+  projectileSpeed: 8
+  damage: 15
+  attackCooldown: 0.5
 --- !u!1 &6532088770950404744
 GameObject:
   m_ObjectHideFlags: 0

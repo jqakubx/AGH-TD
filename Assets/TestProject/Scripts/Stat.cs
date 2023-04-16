@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Stats
+public class Stat
 {
     [SerializeField]
     private BarScript bar;
@@ -36,10 +36,12 @@ public class Stats
         }
         set
         {
-            this.currentVal = value;
+            this.currentVal = Mathf.Clamp(value, 0, MaxVal);
             bar.Value = currentVal;
         }
     }
+
+    public BarScript Bar { get => bar; }
 
     public void Initialize()
     {

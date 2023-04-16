@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SecondPortal
   - enemy
+  - Tile
   layers:
   - Default
   - TransparentFX
