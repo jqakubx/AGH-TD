@@ -79,7 +79,7 @@ public class Tower : MonoBehaviour
             }
         }
         
-        if (target == null && enemies.Count > 0)
+        if (target == null && enemies.Count > 0 && enemies.Peek().IsActive)
         {
             target = enemies.Dequeue();
         }
@@ -95,11 +95,7 @@ public class Tower : MonoBehaviour
                 canAttack = false;
             }
         }
-        else if (enemies.Count > 0)
-        {
-            target = enemies.Dequeue();
-        }
-        if (target != null && !target.Alive)
+        if (target != null && !target.Alive || target != null && !target.IsActive)
         {
             target = null;
         }

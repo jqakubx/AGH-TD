@@ -4,8 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+public delegate void CurrencyChanged();
+
 public class GameManager : Singleton<GameManager>
 {
+
+    public event CurrencyChanged Changed;
     
     public TowerButton ClickedBtn { get; set; }
     
@@ -38,7 +42,16 @@ public class GameManager : Singleton<GameManager>
     private GameObject upgradePanel;
 
     [SerializeField]
+    private GameObject statsPanel;
+
+    [SerializeField]
     private Text sellText;
+
+    [SerializeField]
+    private Text sizeText;
+    
+    [SerializeField]
+    private Text statText;
 
     private Tower selectedTower;
 
@@ -64,6 +77,8 @@ public class GameManager : Singleton<GameManager>
         {
             this.currency = value;
             this.currencyTxt.text = value.ToString() + "  <color=lime>$</color>";
+            
+            OnCurrencyChanged();
         }
     }
 
@@ -97,7 +112,7 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         Lives = 3;
-        Currency = 120;
+        Currency = 10;
     }
 
     void Update()
@@ -120,6 +135,14 @@ public class GameManager : Singleton<GameManager>
         {
             Currency -= ClickedBtn.Price;
             Hover.Instance.Deactivate();
+        }
+    }
+
+    public void OnCurrencyChanged()
+    {
+        if (Changed != null)
+        {
+            Changed();
         }
     }
 
@@ -238,5 +261,16 @@ public class GameManager : Singleton<GameManager>
 
             DeselectTower();
         }
+    }
+
+    public void ShowStats()
+    {
+        statsPanel.SetActive(!statsPanel.activeSelf);
+    }
+
+    public void SetTooltipText(string txt)
+    {
+        sizeText.text = txt;
+        statText.text = txt;
     }
 }

@@ -526,12 +526,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 995f796356c203046ba919896a1524ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lerpSpeed: 0
+  lerpSpeed: 1
   content: {fileID: 1294277022}
   valueText: {fileID: 0}
-  fullColor: {r: 0, g: 0, b: 0, a: 0}
-  lowColor: {r: 0, g: 0, b: 0, a: 0}
-  lerpColors: 0
+  fullColor: {r: 0, g: 1, b: 0.040111303, a: 1}
+  lowColor: {r: 1, g: 0, b: 0, a: 1}
+  lerpColors: 1
 --- !u!1 &1802618164
 GameObject:
   m_ObjectHideFlags: 0
