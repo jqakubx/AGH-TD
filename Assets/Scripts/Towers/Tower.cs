@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public abstract class Tower : MonoBehaviour
 {
     [SerializeField]
     private string projectileType;
@@ -49,14 +49,16 @@ public class Tower : MonoBehaviour
     [SerializeField]
     private float attackCooldown;
     
-    void Start()
+    public TowerUpgrade[] Upgrades { get; protected set; }
+    
+    public void Start()
     {
         myAnimator = transform.parent.GetComponent<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         Attack();
     }

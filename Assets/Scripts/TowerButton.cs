@@ -59,7 +59,27 @@ public class TowerButton : MonoBehaviour
 
     public void ShowInfo(string type)
     {
-        GameManager.Instance.SetTooltipText(type);
+        string tooltip = string.Empty;
+
+        // TODO: dodać opisy jak będą różne wieże i ich debufy
+        //                 Tower tower = towerPrefab.GetComponentInChildren<PodtypTower>();
+
+        switch (type)
+        {
+            case "First":
+                Tower tower = towerPrefab.GetComponentInChildren<Tower>();
+                tooltip = string.Format("<color=#ffa500ff><size=20><b>First tower</b></size></color>" +
+                                        "\nDamage: {0}", tower.Damage);
+                break;
+            case "Second":
+                Tower tower2 = towerPrefab.GetComponentInChildren<Tower>();
+                tooltip = string.Format("<color=#ffa500ff><size=20><b>Second tower</b></size></color>" +
+                                        "\nDamage: {0}" +
+                                        "\nA little stronger", tower2.Damage);              
+                break;
+        }
+        
+        GameManager.Instance.SetTooltipText(tooltip);
         GameManager.Instance.ShowStats();
     }
 }

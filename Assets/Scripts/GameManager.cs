@@ -48,9 +48,6 @@ public class GameManager : Singleton<GameManager>
     private Text sellText;
 
     [SerializeField]
-    private Text sizeText;
-    
-    [SerializeField]
     private Text statText;
 
     private Tower selectedTower;
@@ -270,7 +267,6 @@ public class GameManager : Singleton<GameManager>
 
     public void SetTooltipText(string txt)
     {
-        sizeText.text = txt;
         statText.text = txt;
     }
 }
