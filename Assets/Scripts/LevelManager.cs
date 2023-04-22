@@ -42,6 +42,7 @@ public class LevelManager : Singleton<LevelManager>
     public float TileSize => tilePrefabs[0].GetComponent<SpriteRenderer>().sprite.bounds.size.x;
 
     public Point FirstSpawn { get => firstSpawn; private set => firstSpawn = value; }
+    public Point SecondSpawn { get => secondSpawn; private set => secondSpawn = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -114,7 +115,7 @@ public class LevelManager : Singleton<LevelManager>
         FirstPortal = tmp.GetComponent<Portal>();
         FirstPortal.name = "FirstPortal";
         
-        secondSpawn = new Point(6, 6);
+        SecondSpawn = new Point(6, 6);
         Instantiate(secondPortalPrefab, Tiles[secondSpawn].GetComponent<TileScript>().WorldPosition,Quaternion.identity);
     }
         

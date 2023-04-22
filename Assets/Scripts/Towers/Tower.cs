@@ -27,6 +27,8 @@ public abstract class Tower : MonoBehaviour
 
     private EnemyShip target;
 
+    public int Level { get; protected set; }
+
     public EnemyShip Target
     {
         get { return target; }
@@ -55,6 +57,7 @@ public abstract class Tower : MonoBehaviour
     {
         myAnimator = transform.parent.GetComponent<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
+        Level = 1;
     }
 
     // Update is called once per frame
@@ -63,9 +66,22 @@ public abstract class Tower : MonoBehaviour
         Attack();
     }
 
+    public TowerUpgrade NextUpgrade
+    {
+        get {
+            if (Upgrades.Length > Level - 1)
+            {
+                return Upgrades[Level - 1];
+            }
+
+            return null;
+        }
+    }
+
     public void Select()
     {
         mySpriteRenderer.enabled = !mySpriteRenderer.enabled;
+        GameManager.Instance.UpdateUpgradeTip();
     }
 
     private void Attack()
@@ -103,6 +119,16 @@ public abstract class Tower : MonoBehaviour
         }
     }
 
+    public virtual string GetStats()
+    {
+        if (NextUpgrade != null)
+        {
+            return string.Format("\nLevel: {0} \nDamageee: {1} <color=#00ff00ff> +{2}</color>", Level, damage, NextUpgrade.Damage);
+        }
+
+        return string.Format("\nLevel: {0} \nDamage: {1}", Level, damage);
+    }
+
     private void Shoot()
     {
         Projectile projectile = (Projectile) GameManager.Instance.Pool.GetObject(projectileType).GetComponent<Projectile>();
@@ -125,5 +151,15 @@ public abstract class Tower : MonoBehaviour
             if (other.tag == "enemy")
                 target = null;
         }
+    }
+
+    public virtual void Upgrade()
+    {
+        GameManager.Instance.Currency -= NextUpgrade.Price;
+        Price += NextUpgrade.Price;
+        damage += NextUpgrade.Damage;
+        attackCooldown -= NextUpgrade.Cooldown;
+        Level++;
+        GameManager.Instance.UpdateUpgradeTip();
     }
 }

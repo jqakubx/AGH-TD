@@ -50,6 +50,15 @@ public class GameManager : Singleton<GameManager>
     [SerializeField]
     private Text statText;
 
+    [SerializeField]
+    private Text upgradePrice;
+
+    [SerializeField]
+    private GameObject inGameMenu;
+
+    [SerializeField]
+    private GameObject optionsMenu;
+
     private Tower selectedTower;
 
     List<EnemyShip> activeEnemies = new List<EnemyShip>();
@@ -109,7 +118,7 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         Lives = 3;
-        Currency = 10;
+        Currency = 30;
     }
 
     void Update()
@@ -153,7 +162,7 @@ public class GameManager : Singleton<GameManager>
         selectedTower = tower;
         selectedTower.Select();
 
-        sellText.text = "+ " + (selectedTower.Price / 2);
+        sellText.text = "+ " + (selectedTower.Price / 2).ToString() + " $";
 
         upgradePanel.SetActive(true);
     }
@@ -174,7 +183,18 @@ public class GameManager : Singleton<GameManager>
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Hover.Instance.Deactivate();
+            if (selectedTower == null && !Hover.Instance.IsVisible)
+            {
+                ShowInGameMenu();
+            }
+            else if (Hover.Instance.IsVisible)
+            {
+                DropTower();
+            }
+            else if (selectedTower != null)
+            {
+                DeselectTower();
+            }
         }
     }
 
@@ -268,5 +288,76 @@ public class GameManager : Singleton<GameManager>
     public void SetTooltipText(string txt)
     {
         statText.text = txt;
+    }
+
+
+    public void ShowSelectedTowerStats()
+    {
+        statsPanel.SetActive(!statsPanel.activeSelf);
+        UpdateUpgradeTip();
+    }
+
+    public void UpdateUpgradeTip()
+    {
+        if (selectedTower != null)
+        {
+            sellText.text = "+ " + (selectedTower.Price / 2).ToString() + " $";
+            SetTooltipText(selectedTower.GetStats());
+            
+            if (selectedTower.NextUpgrade != null)
+            {
+                upgradePrice.text = selectedTower.NextUpgrade.Price.ToString() + " $";
+            }
+            else
+            {
+                upgradePrice.text = "Max Level";
+            }
+        }
+    }
+
+    public void UpgradeTower()
+    {
+        if (selectedTower != null && selectedTower.NextUpgrade != null && Currency > selectedTower.NextUpgrade.Price)
+        {
+            selectedTower.Upgrade();
+        }
+    }
+
+    public void ShowInGameMenu()
+    {
+        if (optionsMenu.activeSelf)
+        {
+            ShowMain();
+        }
+        else
+        {
+            inGameMenu.SetActive(!inGameMenu.activeSelf);
+            if (!inGameMenu.activeSelf)
+            {
+                Time.timeScale = 1;
+            }
+            else
+            {
+                Time.timeScale = 0;
+            }
+        }
+    }
+
+    private void DropTower()
+    {
+        ClickedBtn = null;
+        Hover.Instance.Deactivate();
+    }
+
+    public void ShowOptions()
+    {
+        inGameMenu.SetActive(false);
+        optionsMenu.SetActive(true);
+    }
+
+    public void ShowMain()
+    {
+        inGameMenu.SetActive(true);
+        optionsMenu.SetActive(false);
     }
 }

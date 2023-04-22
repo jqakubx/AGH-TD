@@ -10,9 +10,14 @@ public class FirstTower : Tower
         base.Start();
         Upgrades = new TowerUpgrade[]
         {
-            new TowerUpgrade(2, 10, 1.5f)
+            new TowerUpgrade(5, 3, 0.15f),
+            new TowerUpgrade(10, 5, 0.5f),
         };
     }
 
+    public override string GetStats()
+    {
+        return string.Format("<color=#ffa500ff><size=20><b>First Tower</b></size></color>{0}", base.GetStats());
+    }
 
 }

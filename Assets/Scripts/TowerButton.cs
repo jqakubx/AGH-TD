@@ -68,12 +68,12 @@ public class TowerButton : MonoBehaviour
         {
             case "First":
                 Tower tower = towerPrefab.GetComponentInChildren<Tower>();
-                tooltip = string.Format("<color=#ffa500ff><size=20><b>First tower</b></size></color>" +
+                tooltip = string.Format("<color=#ffa500ff><size=20><b>First Tower</b></size></color>" +
                                         "\nDamage: {0}", tower.Damage);
                 break;
             case "Second":
                 Tower tower2 = towerPrefab.GetComponentInChildren<Tower>();
-                tooltip = string.Format("<color=#ffa500ff><size=20><b>Second tower</b></size></color>" +
+                tooltip = string.Format("<color=#ffa500ff><size=20><b>Second Tower</b></size></color>" +
                                         "\nDamage: {0}" +
                                         "\nA little stronger", tower2.Damage);              
                 break;

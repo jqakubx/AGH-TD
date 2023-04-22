@@ -167,6 +167,7 @@ public class EnemyShip : MonoBehaviour
 
             if (health.CurrentVal <= 0)
             {
+                SoundManager.Instance.PlaySFX("boom");
                 GameManager.Instance.Currency += 2;
                 myAnimator.SetTrigger("Die");
                 IsActive = false;

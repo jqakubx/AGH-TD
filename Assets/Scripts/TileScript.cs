@@ -90,6 +90,13 @@ public class TileScript : MonoBehaviour
 
     private void PlaceTower()
     {
+        Walkable = false;
+        if (AStar.GetPath(LevelManager.Instance.FirstSpawn, LevelManager.Instance.SecondSpawn) == null)
+        {
+            Walkable = true;
+            return;
+        }
+
         tower = Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab, transform.position, Quaternion.identity);
         tower.GetComponent<SpriteRenderer>().sortingOrder = GridPosition.Y;
         
@@ -98,7 +105,6 @@ public class TileScript : MonoBehaviour
         this.myTower = tower.transform.GetChild(0).GetComponent<Tower>();
         myTower.Price = GameManager.Instance.ClickedBtn.Price;
 
-        Walkable = false;
         IsEmpty = false;
         ColorTile(Color.white);
 

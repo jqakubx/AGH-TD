@@ -8,6 +8,8 @@ public class Hover : Singleton<Hover>
     private SpriteRenderer spriteRenderer;
 
     private SpriteRenderer rangeSpriteRenderer;
+
+    public bool IsVisible { get; set; }
     
     // Start is called before the first frame update
     void Start()
@@ -38,6 +40,7 @@ public class Hover : Singleton<Hover>
         this.spriteRenderer.enabled = true;
 
         rangeSpriteRenderer.enabled = true;
+        IsVisible = true;
     }
     
     public void Deactivate()
@@ -46,5 +49,6 @@ public class Hover : Singleton<Hover>
         GameManager.Instance.ClickedBtn = null;
 
         rangeSpriteRenderer.enabled = false;
+        IsVisible = false;
     }
 }

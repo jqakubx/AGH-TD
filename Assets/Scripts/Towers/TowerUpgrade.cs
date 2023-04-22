@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerUpgrade : MonoBehaviour
+public class TowerUpgrade
 {
     public int Price { get; private set; }
     
