@@ -8,10 +8,10 @@ public class SecondTower : Tower
     private new void Start()
     {
         base.Start();
-        // Upgrades = new TowerUpgrade[]
-        // {
-        //     new TowerUpgrade(5, 18, 0.5f)
-        // };
+        Upgrades = new TowerUpgrade[]
+        {
+            new TowerUpgrade(5, 18, 0.5f)
+        };
     }
 
 

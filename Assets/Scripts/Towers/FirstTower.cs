@@ -8,10 +8,10 @@ public class FirstTower : Tower
     protected new void Start()
     {
         base.Start();
-        // Upgrades = new TowerUpgrade[]
-        // {
-        //     new TowerUpgrade(2, 10, 1.5f)
-        // };
+        Upgrades = new TowerUpgrade[]
+        {
+            new TowerUpgrade(2, 10, 1.5f)
+        };
     }
 
 
