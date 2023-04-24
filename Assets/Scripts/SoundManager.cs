@@ -61,7 +61,7 @@ public class SoundManager : Singleton<SoundManager>
         PlayerPrefs.SetFloat(SFX_PREF_KEY, sfxSlider.value);
     }
 
-    private void LoadVolume()
+    public void LoadVolume()
     {
         musicSource.volume = PlayerPrefs.GetFloat(MUSIC_PREF_KEY, DEFAULT_VOLUME);
         sfxSource.volume = PlayerPrefs.GetFloat(SFX_PREF_KEY, DEFAULT_VOLUME);
