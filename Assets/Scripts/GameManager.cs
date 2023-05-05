@@ -360,4 +360,9 @@ public class GameManager : Singleton<GameManager>
         inGameMenu.SetActive(true);
         optionsMenu.SetActive(false);
     }
+
+    public bool IsGamePaused()
+    {
+        return Time.timeScale == 0;
+    }
 }

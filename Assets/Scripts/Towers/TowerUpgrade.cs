@@ -10,10 +10,13 @@ public class TowerUpgrade
     
     public float Cooldown { get; private set; }
 
-    public TowerUpgrade(int price, int damage, float cooldown)
+    public float RangeMultiplier { get; private set; }
+
+    public TowerUpgrade(int price, int damage, float cooldown, float rangeMultiplier)
     {
         this.Price = price;
         this.Damage = damage;
         this.Cooldown = cooldown;
+        this.RangeMultiplier = rangeMultiplier;
     }
 }

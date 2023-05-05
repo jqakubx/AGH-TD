@@ -7,23 +7,23 @@ using UnityEngine.EventSystems;
 
 public class TileScript : MonoBehaviour
 {
+    private static readonly Color32 DEFAULT_COLOR = Color.white;
+
     public Point GridPosition { get; private set; }
 
     public bool IsEmpty { get; set; }
 
     private Tower myTower;
-    
-    private Color32 fullColor = new Color32(255, 118, 118, 255);
-    
-    private Color32 emptyColor = new Color32(96, 255, 90, 255);
+
+    public TileAttributes Attrs { get; private set; }
 
     private SpriteRenderer spriteRenderer;
-
-    public bool Walkable { get; set; }
     
     private GameObject tower;
+
+    public bool Walkable { get => Attrs.Walkable && IsEmpty; }
     
-    
+ 
     public Vector2 WorldPosition
     {
         get
@@ -42,11 +42,11 @@ public class TileScript : MonoBehaviour
     {
     }
 
-    public void Setup(Point gridPosition, Vector3 worldPos, Transform parent)
+    public void Setup(TileAttributes attributes, Point gridPosition, Vector3 worldPos, Transform parent)
     {
-        Walkable = true;
-        IsEmpty = true;
+        this.Attrs = attributes;
         this.GridPosition = gridPosition;
+        IsEmpty = true;
         transform.position = worldPos;
         transform.SetParent(parent);
         LevelManager.Instance.Tiles.Add(gridPosition, this);;
@@ -54,16 +54,9 @@ public class TileScript : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedBtn != null)
+        if (Attrs.Buildable && !EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedBtn != null)
         {
-            if (IsEmpty)
-            {
-                ColorTile(emptyColor);
-            }
-            else
-            {
-                ColorTile(fullColor);
-            }
+            ColorTile(IsEmpty ? Attrs.EmptyColor : Attrs.FullColor);
             
             if (IsEmpty && Input.GetMouseButtonDown(0))
             {
@@ -85,15 +78,15 @@ public class TileScript : MonoBehaviour
 
     private void OnMouseExit()
     {
-        ColorTile(Color.white);
+        ColorTile(DEFAULT_COLOR);
     }
 
     private void PlaceTower()
     {
-        Walkable = false;
+        IsEmpty = false;
         if (AStar.GetPath(LevelManager.Instance.FirstSpawn, LevelManager.Instance.SecondSpawn) == null)
         {
-            Walkable = true;
+            IsEmpty = true;
             return;
         }
 
@@ -106,7 +99,7 @@ public class TileScript : MonoBehaviour
         myTower.Price = GameManager.Instance.ClickedBtn.Price;
 
         IsEmpty = false;
-        ColorTile(Color.white);
+        ColorTile(DEFAULT_COLOR);
 
         GameManager.Instance.BuyTower();
     }
