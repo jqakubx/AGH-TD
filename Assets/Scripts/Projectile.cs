@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    private static readonly float PROJECTILE_CLOSE_THRESHOLD = 0.001f;
+
     private EnemyShip target;
+
+    private Vector3 lastTargetPostion;
 
     private Tower parent;
 
@@ -26,21 +30,21 @@ public class Projectile : MonoBehaviour
     {
         this.target = parent.Target;
         this.parent = parent;
+        lastTargetPostion = this.target.transform.position;
     }
 
     private void MoveToTarget()
     {
         if (target != null && target.IsActive)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Time.deltaTime * parent.ProjectileSpeed);
-
-            Vector2 dir = target.transform.position - transform.position;
-
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            flyTowards(target.transform.position);
+            lastTargetPostion = target.transform.position;
         }
-        else if (!target.IsActive)
+        else if (!target.IsActive && !isCloseToLastTargetPosition())
+        {
+            flyTowards(lastTargetPostion);
+        }
+        else
         {
             GameManager.Instance.Pool.ReleaseObject(gameObject);
         }
@@ -57,5 +61,21 @@ public class Projectile : MonoBehaviour
                 myAnimator.SetTrigger("Impact");
             }
         }
+    }
+
+    private void flyTowards(Vector3 targetPos)
+    {
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * parent.ProjectileSpeed);
+
+        Vector2 dir = targetPos - transform.position;
+
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+    }
+    
+    private bool isCloseToLastTargetPosition()
+    {
+        return lastTargetPostion != null && (lastTargetPostion - transform.position).magnitude < PROJECTILE_CLOSE_THRESHOLD;
     }
 }
