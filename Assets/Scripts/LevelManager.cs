@@ -89,14 +89,15 @@ public class LevelManager : Singleton<LevelManager>
 
     private void PlaceTile(string tileType, int x, int y , Vector3 worldStartPosition)
     {
-        int tileIndex = int.Parse(tileType);
-        
-        //Create a a new tile and makes a reference to that tile in the newTile variable
-        TileScript newTile = Instantiate(tilePrefabs[tileIndex]).GetComponent<TileScript>();
+        TileAttributes attributes = TileAttributes.FromStringRepr(tileType);
+        TileScript newTile = Instantiate(tilePrefabs[attributes.PrefabIdx]).GetComponent<TileScript>();
 
-        //Uses the new tile variable to change the position of the tile
-        
-        newTile.Setup(new Point(x, y), new Vector3(worldStartPosition.x + (TileSize*x), worldStartPosition.y - (TileSize*y)), map);
+        newTile.Setup(
+            attributes,
+            new Point(x, y),
+            new Vector3(worldStartPosition.x + (TileSize*x),
+            worldStartPosition.y - (TileSize*y)), map
+        );
     }
 
     private string[] ReadLevelTest()

@@ -21,9 +21,22 @@ public abstract class Tower : MonoBehaviour
     [SerializeField]
     private int damage;
 
+    [SerializeField]
+    private float range;
+
+    public float Range { get => range;
+        private set
+        {
+            range = value;
+            rangeGameObject.transform.localScale = new Vector3(range, range, 1);
+        }
+    }
+
     public int Price { get; set; }
     
     private SpriteRenderer mySpriteRenderer;
+
+    private GameObject rangeGameObject;
 
     private EnemyShip target;
 
@@ -57,6 +70,9 @@ public abstract class Tower : MonoBehaviour
     {
         myAnimator = transform.parent.GetComponent<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
+        rangeGameObject = transform.gameObject;
+        Upgrades = new TowerUpgrade[0];
+        Range = range;
         Level = 1;
     }
 
@@ -159,6 +175,7 @@ public abstract class Tower : MonoBehaviour
         Price += NextUpgrade.Price;
         damage += NextUpgrade.Damage;
         attackCooldown -= NextUpgrade.Cooldown;
+        Range *= NextUpgrade.RangeMultiplier;
         Level++;
         GameManager.Instance.UpdateUpgradeTip();
     }

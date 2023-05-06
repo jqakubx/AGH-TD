@@ -15,25 +15,15 @@ public class GameManager : Singleton<GameManager>
     
     private int currency;
 
-    private int wave = 0;
-
     private int lives;
 
     private bool gameOver = false;
-
-    private int health = 15;
-
-    [SerializeField]
-    private Text waveTxt;
 
     [SerializeField]
     private Text currencyTxt;
 
     [SerializeField]
     private Text livesTxt;
-
-    [SerializeField]
-    private GameObject waveBtn;
 
     [SerializeField]
     private GameObject gameOverMenu;
@@ -61,16 +51,7 @@ public class GameManager : Singleton<GameManager>
 
     private Tower selectedTower;
 
-    List<EnemyShip> activeEnemies = new List<EnemyShip>();
-    
     public ObjectPool Pool { get; set; }
-
-    public bool WaveActive { 
-        get 
-        { 
-            return activeEnemies.Count > 0; 
-        } 
-    }
 
     public int Currency
     {
@@ -109,16 +90,16 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-
     private void Awake()
     {
         Pool = GetComponent<ObjectPool>();
     }
-    
+
     void Start()
     {
         Lives = 3;
         Currency = 30;
+        WaveManager.Instance.LoadLevel("Level1_waves"); // TODO handle levels
     }
 
     void Update()
@@ -128,7 +109,7 @@ public class GameManager : Singleton<GameManager>
 
     public void PickTower(TowerButton towerButton)
     {
-        if (Currency >= towerButton.Price && !WaveActive)
+        if (Currency >= towerButton.Price && !WaveManager.Instance.WaveActive)
         {
             this.ClickedBtn = towerButton;
             Hover.Instance.Activate(towerButton.Sprite);
@@ -195,55 +176,6 @@ public class GameManager : Singleton<GameManager>
             {
                 DeselectTower();
             }
-        }
-    }
-
-    public void StartWave()
-    {
-        wave++;
-        waveTxt.text = string.Format("Wave: <color=lime>{0}</color>", wave);
-        StartCoroutine(SpawnWave());
-        waveBtn.SetActive(false);
-    }
-
-    private IEnumerator SpawnWave()
-    {
-        LevelManager.Instance.GeneratePath();
-
-        for (int i = 0; i < wave; i++)
-        {
-            int enemyIndex = Random.Range(0, 1);
-
-            string type = string.Empty;
-
-            switch (enemyIndex)
-            {
-                case 0:
-                    type = "FirstEnemy";
-                    break;
-            }
-
-            EnemyShip enemy = Pool.GetObject(type).GetComponent<EnemyShip>();
-            enemy.Spawn(health);
-
-            if (wave % 3 == 0)
-            {
-                health += 5;
-            }
-
-            activeEnemies.Add(enemy);
-
-            yield return new WaitForSeconds(2.5f);
-        }
-        
-    }
-
-    public void RemoveEnemy(EnemyShip enemy)
-    {
-        activeEnemies.Remove(enemy);
-        if (!WaveActive && !gameOver)
-        {
-            waveBtn.SetActive(true);
         }
     }
 
@@ -359,5 +291,15 @@ public class GameManager : Singleton<GameManager>
     {
         inGameMenu.SetActive(true);
         optionsMenu.SetActive(false);
+    }
+
+    public bool IsGamePaused()
+    {
+        return Time.timeScale == 0;
+    }
+
+    public bool canShowNewWaveButton()
+    {
+        return !gameOver;
     }
 }

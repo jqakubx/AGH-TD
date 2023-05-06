@@ -117,6 +117,7 @@ MonoBehaviour:
   projectileType: ArrowProjectile
   projectileSpeed: 10
   damage: 5
+  range: 10
   attackCooldown: 2
 --- !u!1 &6976301573882672590
 GameObject:

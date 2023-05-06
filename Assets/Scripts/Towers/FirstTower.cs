@@ -10,8 +10,8 @@ public class FirstTower : Tower
         base.Start();
         Upgrades = new TowerUpgrade[]
         {
-            new TowerUpgrade(5, 3, 0.15f),
-            new TowerUpgrade(10, 5, 0.5f),
+            new TowerUpgrade(5, 3, 0.15f, 1.15f),
+            new TowerUpgrade(10, 5, 0.5f, 1.15f),
         };
     }
 
