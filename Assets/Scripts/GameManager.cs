@@ -29,6 +29,9 @@ public class GameManager : Singleton<GameManager>
     private GameObject gameOverMenu;
 
     [SerializeField]
+    private GameObject levelFinishedMenu;
+    
+    [SerializeField]
     private GameObject upgradePanel;
 
     [SerializeField]
@@ -63,7 +66,7 @@ public class GameManager : Singleton<GameManager>
         set
         {
             this.currency = value;
-            this.currencyTxt.text = value.ToString() + "  <color=FFD700>$</color>";
+            this.currencyTxt.text = value.ToString() + "  <color=#FFD700>$</color>";
             
             OnCurrencyChanged();
         }
@@ -301,5 +304,14 @@ public class GameManager : Singleton<GameManager>
     public bool canShowNewWaveButton()
     {
         return !gameOver;
+    }
+
+    public void finishGame()
+    {
+        if (!gameOver)
+        {
+            gameOver = true;
+            levelFinishedMenu.SetActive(true);
+        }
     }
 }
