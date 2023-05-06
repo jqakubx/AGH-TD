@@ -102,7 +102,7 @@ public class LevelManager : Singleton<LevelManager>
 
     private string[] ReadLevelTest()
     {
-        TextAsset bindData = Resources.Load("Level") as TextAsset;
+        TextAsset bindData = Resources.Load("Level1") as TextAsset;
 
         string data = bindData!.text.Replace(Environment.NewLine, string.Empty);
 
