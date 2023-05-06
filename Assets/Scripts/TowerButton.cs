@@ -77,6 +77,12 @@ public class TowerButton : MonoBehaviour
                                         "\nDamage: {0}" +
                                         "\nA little stronger", tower2.Damage);              
                 break;
+            case "Catapult":
+                Tower catapult = towerPrefab.GetComponentInChildren<Tower>();
+                tooltip = string.Format("<color=#ffa500ff><size=20><b>Catapult</b></size></color>" +
+                                        "\nDamage: {0}" +
+                                        "\nA little stronger", catapult.Damage);              
+                break;
         }
         
         GameManager.Instance.SetTooltipText(tooltip);

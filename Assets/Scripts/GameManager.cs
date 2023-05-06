@@ -63,7 +63,7 @@ public class GameManager : Singleton<GameManager>
         set
         {
             this.currency = value;
-            this.currencyTxt.text = value.ToString() + "  <color=lime>$</color>";
+            this.currencyTxt.text = value.ToString() + "  <color=FFD700>$</color>";
             
             OnCurrencyChanged();
         }
@@ -249,7 +249,7 @@ public class GameManager : Singleton<GameManager>
 
     public void UpgradeTower()
     {
-        if (selectedTower != null && selectedTower.NextUpgrade != null && Currency > selectedTower.NextUpgrade.Price)
+        if (selectedTower != null && selectedTower.NextUpgrade != null && Currency >= selectedTower.NextUpgrade.Price)
         {
             selectedTower.Upgrade();
         }
