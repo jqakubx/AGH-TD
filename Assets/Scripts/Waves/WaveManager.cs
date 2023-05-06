@@ -31,7 +31,7 @@ public class WaveManager : Singleton<WaveManager>
     public void StartWave()
     {
         wave++;
-        waveTxt.text = string.Format("Wave: <color=lime>{0}</color>", wave);
+        waveTxt.text = string.Format("Wave: <color=#FFD700>{0}</color>", wave);
         StartCoroutine(SpawnWave());
         waveBtn.SetActive(false);
     }
@@ -59,8 +59,7 @@ public class WaveManager : Singleton<WaveManager>
 
             if (wave >= currentLevelWaves.Count)
             {
-                // GameManager.onLevelFinished(); TODO
-                Debug.Log("Level Finished");
+                GameManager.Instance.finishGame();
             } else
             {
                 waveBtn.SetActive(true);

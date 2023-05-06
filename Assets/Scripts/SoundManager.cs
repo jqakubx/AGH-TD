@@ -7,7 +7,7 @@ public class SoundManager : Singleton<SoundManager>
 {
     private static readonly string MUSIC_PREF_KEY = "Music";
     private static readonly string SFX_PREF_KEY = "SFX";
-    private static readonly float DEFAULT_VOLUME = 0.5f;
+    private static readonly float DEFAULT_VOLUME = 0.25f;
         
     [SerializeField]
     private AudioSource musicSource;

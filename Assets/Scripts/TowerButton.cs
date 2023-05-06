@@ -48,7 +48,7 @@ public class TowerButton : MonoBehaviour
         if (price <= GameManager.Instance.Currency)
         {
             GetComponent<Image>().color = Color.white;
-            priceTxt.color = Color.white;
+            priceTxt.color = Color.green;
         }
         else
         {
@@ -76,6 +76,18 @@ public class TowerButton : MonoBehaviour
                 tooltip = string.Format("<color=#ffa500ff><size=20><b>Second Tower</b></size></color>" +
                                         "\nDamage: {0}" +
                                         "\nA little stronger", tower2.Damage);              
+                break;
+            case "Catapult":
+                Tower catapult = towerPrefab.GetComponentInChildren<Tower>();
+                tooltip = string.Format("<color=#ffa500ff><size=20><b>Catapult</b></size></color>" +
+                                        "\nDamage: {0}" +
+                                        "\nA little stronger", catapult.Damage);              
+                break;
+            case "Ballista":
+                Tower ballista = towerPrefab.GetComponentInChildren<Tower>();
+                tooltip = string.Format("<color=#ffa500ff><size=20><b>Ballista</b></size></color>" +
+                                        "\nDamage: {0}" +
+                                        "\nA little stronger", ballista.Damage);              
                 break;
         }
         
