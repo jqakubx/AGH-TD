@@ -34,11 +34,11 @@ public class Hover : Singleton<Hover>
         }
     }
 
-    public void Activate(Sprite sprite)
+    public void Activate(Sprite sprite, float rangeScale)
     {
         this.spriteRenderer.sprite = sprite;
         this.spriteRenderer.enabled = true;
-
+        rangeSpriteRenderer.transform.localScale = new Vector3(rangeScale, rangeScale, 1);
         rangeSpriteRenderer.enabled = true;
         IsVisible = true;
     }

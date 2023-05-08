@@ -115,7 +115,10 @@ public class GameManager : Singleton<GameManager>
         if (Currency >= towerButton.Price && !WaveManager.Instance.WaveActive)
         {
             this.ClickedBtn = towerButton;
-            Hover.Instance.Activate(towerButton.Sprite);
+            Hover.Instance.Activate(
+                towerButton.Sprite,
+                towerButton.TowerPrefab.transform.GetChild(0).GetComponent<Tower>().Range
+            );
         }
     }
 
