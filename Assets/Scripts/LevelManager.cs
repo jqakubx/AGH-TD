@@ -116,7 +116,7 @@ public class LevelManager : Singleton<LevelManager>
         FirstPortal = tmp.GetComponent<Portal>();
         FirstPortal.name = "FirstPortal";
         
-        SecondSpawn = new Point(9, 5);
+        SecondSpawn = new Point(14, 5);
         Instantiate(secondPortalPrefab, Tiles[secondSpawn].GetComponent<TileScript>().WorldPosition,Quaternion.identity);
     }
         

@@ -6,22 +6,16 @@
 			{
 				"enemyType": "FirstEnemy",
 				"spawnCooldown": 0,
-				"health": 5,
-				"speed": 3,
 				"extraParams": {}
 			},
 			{
-				"enemyType": "FirstEnemy",
-				"spawnCooldown": 1,
-				"health": 5,
-				"speed": 3,
+				"enemyType": "PirateShip",
+				"spawnCooldown": 3,
 				"extraParams": {}
 			},
 			{
-				"enemyType": "FirstEnemy",
-				"spawnCooldown": 1,
-				"health": 5,
-				"speed": 3,
+				"enemyType": "PirateShip",
+				"spawnCooldown": 5,
 				"extraParams": {}
 			}
 		]
@@ -33,36 +27,26 @@
 			{
 				"enemyType": "FirstEnemy",
 				"spawnCooldown": 0,
-				"health": 25,
-				"speed": 4,
 				"extraParams": {}
 			},
 			{
 				"enemyType": "FirstEnemy",
 				"spawnCooldown": 1,
-				"health": 5,
-				"speed": 5,
 				"extraParams": {}
 			},
 			{
 				"enemyType": "FirstEnemy",
 				"spawnCooldown": 1,
-				"health": 5,
-				"speed": 5,
 				"extraParams": {}
 			},
 			{
 				"enemyType": "FirstEnemy",
 				"spawnCooldown": 1,
-				"health": 5,
-				"speed": 5,
 				"extraParams": {}
 			},
 			{
 				"enemyType": "FirstEnemy",
 				"spawnCooldown": 2,
-				"health": 5,
-				"speed": 5,
 				"extraParams": {}
 			},
 		]

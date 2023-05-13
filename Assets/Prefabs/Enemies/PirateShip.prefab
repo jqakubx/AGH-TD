@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4394511308613673588}
   - component: {fileID: 4394511308613673591}
   m_Layer: 0
-  m_Name: FirstEnemy
+  m_Name: PirateShip
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1461701993, guid: a4bcfc0ab423916448939eaa925f49e4, type: 3}
+  m_Sprite: {fileID: 1781462615, guid: 5f04461e6d46c6a4f80148ec4cb91ef8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -101,8 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0ce6acf75645174195f6e8029ec25da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  propSpeed: 3
-  propHealth: 5
+  propHealth: 7
+  propSpeed: 4
   health:
     bar: {fileID: 2913360416008775350}
     maxVal: 0
@@ -124,7 +124,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.32, y: 1.28}
+    oldSize: {x: 0.77, y: 0.61}
     newSize: {x: 1.32, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -164,7 +164,7 @@ Animator:
   m_GameObject: {fileID: 4394511308613673590}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9b4cf9a784ffaa841893e013d7d095d7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 757f5a807cf13f244b15b5a5826ad74c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

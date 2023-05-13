@@ -225,4 +225,4 @@ MonoBehaviour:
   projectileSpeed: 10
   damage: 5
   range: 15
-  attackCooldown: 2
+  attackCooldown: 1

@@ -5,7 +5,11 @@ using UnityEngine;
 
 public class EnemyShip : MonoBehaviour
 {
-    private float speed;
+    [SerializeField] 
+    private float propHealth;
+    
+    [SerializeField]
+    private float propSpeed;
 
     private Stack<Node> path;
 
@@ -38,13 +42,12 @@ public class EnemyShip : MonoBehaviour
         Move();
     }
 
-    public void Spawn(int health, float speed)
+    public void Spawn()
     {
         transform.position = LevelManager.Instance.FirstPortal.transform.position;
         this.health.Bar.Reset();
-        this.health.MaxVal = health;
+        this.health.MaxVal = propHealth;
         this.health.CurrentVal = this.health.MaxVal;
-        this.speed = speed;
 
         myAnimator = GetComponent<Animator>();
         StartCoroutine(Scale(new Vector3(0.1f, 0.1f), new Vector3(1.0f, 1.0f), false));
@@ -77,7 +80,7 @@ public class EnemyShip : MonoBehaviour
     {
         if (IsActive)
         {
-            transform.position = Vector2.MoveTowards(transform.position, destination, speed*Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, destination, propSpeed*Time.deltaTime);
 
             if (transform.position == destination)
             {
