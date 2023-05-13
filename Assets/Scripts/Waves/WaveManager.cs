@@ -43,7 +43,7 @@ public class WaveManager : Singleton<WaveManager>
         foreach(SpawnInfo spawnInfo in CurrentWave.spawnInfos)
         {
             EnemyShip enemy = GameManager.Instance.Pool.GetObject(spawnInfo.enemyType).GetComponent<EnemyShip>();
-            enemy.Spawn(spawnInfo.health, spawnInfo.speed);
+            enemy.Spawn();
             activeEnemies.Add(enemy);
 
             yield return new WaitForSeconds(spawnInfo.spawnCooldown);
