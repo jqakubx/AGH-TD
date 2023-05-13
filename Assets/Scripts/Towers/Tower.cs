@@ -66,6 +66,7 @@ public abstract class Tower : MonoBehaviour
     
     public TowerUpgrade[] Upgrades { get; protected set; }
     
+    
     public void Start()
     {
         myAnimator = transform.parent.GetComponent<Animator>();
@@ -122,6 +123,15 @@ public abstract class Tower : MonoBehaviour
         {
             if (canAttack)
             {
+                if (transform.position.x > target.transform.position.x)
+                {
+                    myAnimator.SetInteger("Horizontal", 0);
+                }
+                else
+                {
+                    myAnimator.SetInteger("Horizontal", 1);
+                }
+                
                 Shoot();
                 
                 myAnimator.SetTrigger("Attack");

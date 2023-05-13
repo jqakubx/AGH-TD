@@ -102,7 +102,8 @@ public class GameManager : Singleton<GameManager>
     {
         Lives = 3;
         Currency = 30;
-        WaveManager.Instance.LoadLevel("Level1_waves"); // TODO handle levels
+        string levelWavesName = LevelStateController.level + "_waves";
+        WaveManager.Instance.LoadLevel(levelWavesName); // TODO handle levels
     }
 
     void Update()

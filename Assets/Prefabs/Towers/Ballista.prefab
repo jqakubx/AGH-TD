@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 470d3b838f11a2d43a0e773a0c1f94f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileType: CatapultProjectile
+  projectileType: NetProjectile
   projectileSpeed: 12
   damage: 4
   range: 6
