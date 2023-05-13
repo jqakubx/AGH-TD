@@ -397,7 +397,7 @@ MonoBehaviour:
         - m_Target: {fileID: 139644934}
           m_TargetAssemblyTypeName: TowerButton, Assembly-CSharp
           m_MethodName: ShowInfo
-          m_Mode: 5
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2986,7 +2986,7 @@ MonoBehaviour:
         - m_Target: {fileID: 807500000}
           m_TargetAssemblyTypeName: TowerButton, Assembly-CSharp
           m_MethodName: ShowInfo
-          m_Mode: 5
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4398,7 +4398,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10.299988, y: -409.8}
-  m_SizeDelta: {x: 88.81172, y: 39.11437}
+  m_SizeDelta: {x: 106.909256, y: 50.844566}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1187935769
 MonoBehaviour:
@@ -4413,10 +4413,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 10
-    m_Right: 10
-    m_Top: 10
-    m_Bottom: 10
+    m_Left: 15
+    m_Right: 15
+    m_Top: 15
+    m_Bottom: 15
   m_ChildAlignment: 0
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
@@ -5024,8 +5024,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 44.40586, y: -19.557184}
-  m_SizeDelta: {x: 68.81172, y: 19.114368}
+  m_AnchoredPosition: {x: 53.454628, y: -25.422283}
+  m_SizeDelta: {x: 76.909256, y: 20.844564}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1477149779
 MonoBehaviour:

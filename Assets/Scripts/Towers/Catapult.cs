@@ -15,8 +15,13 @@ public class Catapult : Tower
         };
     }
 
-    public override string GetStats()
+    protected override string GetTowerName()
     {
-        return string.Format("<color=#ffa500ff><size=20><b>Catapult</b></size></color>{0}", base.GetStats());
+        return "Catapult";
+    }
+
+    protected override string GetDescription()
+    {
+        return "High range and damage but slow";
     }
 }

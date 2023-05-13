@@ -57,41 +57,10 @@ public class TowerButton : MonoBehaviour
         }
     }
 
-    public void ShowInfo(string type)
-    {
-        string tooltip = string.Empty;
-
-        // TODO: dodać opisy jak będą różne wieże i ich debufy
-        //                 Tower tower = towerPrefab.GetComponentInChildren<PodtypTower>();
-
-        switch (type)
-        {
-            case "First":
-                Tower tower = towerPrefab.GetComponentInChildren<Tower>();
-                tooltip = string.Format("<color=#ffa500ff><size=20><b>First Tower</b></size></color>" +
-                                        "\nDamage: {0}", tower.Damage);
-                break;
-            case "Second":
-                Tower tower2 = towerPrefab.GetComponentInChildren<Tower>();
-                tooltip = string.Format("<color=#ffa500ff><size=20><b>Second Tower</b></size></color>" +
-                                        "\nDamage: {0}" +
-                                        "\nA little stronger", tower2.Damage);              
-                break;
-            case "Catapult":
-                Tower catapult = towerPrefab.GetComponentInChildren<Tower>();
-                tooltip = string.Format("<color=#ffa500ff><size=20><b>Catapult</b></size></color>" +
-                                        "\nDamage: {0}" +
-                                        "\nA little stronger", catapult.Damage);              
-                break;
-            case "Ballista":
-                Tower ballista = towerPrefab.GetComponentInChildren<Tower>();
-                tooltip = string.Format("<color=#ffa500ff><size=20><b>Ballista</b></size></color>" +
-                                        "\nDamage: {0}" +
-                                        "\nA little stronger", ballista.Damage);              
-                break;
-        }
-        
-        GameManager.Instance.SetTooltipText(tooltip);
+    public void ShowInfo()
+    { 
+        Tower tower = towerPrefab.GetComponentInChildren<Tower>();
+        GameManager.Instance.SetTooltipText(tower.GetTooltipInfo());
         GameManager.Instance.ShowStats();
     }
 }

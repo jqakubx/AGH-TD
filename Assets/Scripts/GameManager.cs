@@ -113,7 +113,7 @@ public class GameManager : Singleton<GameManager>
 
     public void PickTower(TowerButton towerButton)
     {
-        if (Currency >= towerButton.Price && !WaveManager.Instance.WaveActive)
+        if (Currency >= towerButton.Price)
         {
             this.ClickedBtn = towerButton;
             Hover.Instance.Activate(

@@ -8,6 +8,9 @@ public abstract class Tower : MonoBehaviour
     [SerializeField]
     private string projectileType;
 
+    [SerializeField]
+    private string upgradeInfoColorHex = "#00ff00ff";
+
     [SerializeField] 
     private float projectileSpeed;
 
@@ -63,6 +66,8 @@ public abstract class Tower : MonoBehaviour
     
     [SerializeField]
     private float attackCooldown;
+
+    public float AttackCooldown { get => attackCooldown; }
     
     public TowerUpgrade[] Upgrades { get; protected set; }
     
@@ -147,12 +152,46 @@ public abstract class Tower : MonoBehaviour
 
     public virtual string GetStats()
     {
+        string shipName = Util.FormatShipStatName(GetTowerName());
+        string damageDelta = null, rangeDelta = null, cooldownDelta = null;
+
         if (NextUpgrade != null)
         {
-            return string.Format("\nLevel: {0} \nDamageee: {1} <color=#00ff00ff> +{2}</color>", Level, damage, NextUpgrade.Damage);
+            damageDelta = NextUpgrade.Damage.ToString();
+            rangeDelta = (Range * NextUpgrade.RangeMultiplier - Range).ToString("0.00");
+            cooldownDelta = NextUpgrade.Cooldown.ToString("0.00");
         }
 
-        return string.Format("\nLevel: {0} \nDamage: {1}", Level, damage);
+        return string.Format(
+            "{0}" +
+            "\nLevel: {1}" +
+            "\nDamage: {2}" +
+            "\nRange: {3}" +
+            "\nCooldown: {4}",
+            shipName, Level,
+            Util.FormatStat(Damage.ToString(), upgradeInfoColorHex, damageDelta),
+            Util.FormatStat(Range.ToString("0.00"), upgradeInfoColorHex, rangeDelta),
+            Util.FormatStat(AttackCooldown.ToString("0.00"), upgradeInfoColorHex, cooldownDelta, "-", "s")
+        );
+    }
+
+    public string GetTooltipInfo()
+    {
+        return string.Format("{0}" +
+                        "\nDamage: {1}" +
+                        "\nRange: {2}" +
+                        "\nCooldown: {3}s" +
+                        "{4}" +
+                        "\n{5}",
+                        Util.FormatShipStatName(GetTowerName()),
+                        Damage, Range, AttackCooldown.ToString("0.00"), GetExtraTooltipInfo(), GetDescription());
+    }
+
+    protected abstract string GetTowerName();
+    protected abstract string GetDescription();
+    protected virtual string GetExtraTooltipInfo()
+    {
+        return "";
     }
 
     private void Shoot()
