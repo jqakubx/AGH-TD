@@ -102,7 +102,7 @@ public class LevelManager : Singleton<LevelManager>
 
     private string[] ReadLevelTest()
     {
-        TextAsset bindData = Resources.Load("Level1") as TextAsset;
+        TextAsset bindData = Resources.Load(LevelStateController.level) as TextAsset;
 
         string data = bindData!.text.Replace(Environment.NewLine, string.Empty);
 
@@ -116,7 +116,7 @@ public class LevelManager : Singleton<LevelManager>
         FirstPortal = tmp.GetComponent<Portal>();
         FirstPortal.name = "FirstPortal";
         
-        SecondSpawn = new Point(6, 6);
+        SecondSpawn = new Point(9, 5);
         Instantiate(secondPortalPrefab, Tiles[secondSpawn].GetComponent<TileScript>().WorldPosition,Quaternion.identity);
     }
         

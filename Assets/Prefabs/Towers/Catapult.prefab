@@ -224,5 +224,5 @@ MonoBehaviour:
   projectileType: CatapultProjectile
   projectileSpeed: 10
   damage: 5
-  range: 5
+  range: 15
   attackCooldown: 2
