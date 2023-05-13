@@ -5,7 +5,7 @@
 		"spawnInfos": [
 			{
 				"enemyType": "FirstEnemy",
-				"spawnCooldown": 0,
+				"spawnCooldown": 2,
 				"extraParams": {}
 			},
 			{
@@ -26,7 +26,7 @@
 		"spawnInfos": [
 			{
 				"enemyType": "FirstEnemy",
-				"spawnCooldown": 0,
+				"spawnCooldown": 1,
 				"extraParams": {}
 			},
 			{

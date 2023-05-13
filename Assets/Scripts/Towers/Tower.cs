@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Tower : MonoBehaviour
+public abstract class Tower : Building
 {
     [SerializeField]
     private string projectileType;
@@ -34,8 +34,6 @@ public abstract class Tower : MonoBehaviour
             rangeGameObject.transform.localScale = new Vector3(range, range, 1);
         }
     }
-
-    public int Price { get; set; }
     
     private SpriteRenderer mySpriteRenderer;
 
@@ -70,13 +68,16 @@ public abstract class Tower : MonoBehaviour
     public float AttackCooldown { get => attackCooldown; }
     
     public TowerUpgrade[] Upgrades { get; protected set; }
-    
-    
+
+    public void Awake()
+    {
+        mySpriteRenderer = transform.GetComponent<SpriteRenderer>();
+        myAnimator = transform.GetComponent<Animator>();
+        rangeGameObject = transform.GetChild(0).gameObject;
+    }
+
     public void Start()
     {
-        myAnimator = transform.parent.GetComponent<Animator>();
-        mySpriteRenderer = GetComponent<SpriteRenderer>();
-        rangeGameObject = transform.gameObject;
         Upgrades = new TowerUpgrade[0];
         Range = range;
         Level = 1;
@@ -100,9 +101,10 @@ public abstract class Tower : MonoBehaviour
         }
     }
 
-    public void Select()
+    public void ToggleSelection()
     {
-        mySpriteRenderer.enabled = !mySpriteRenderer.enabled;
+        SpriteRenderer rangeSpriteRenderer = rangeGameObject.GetComponent<SpriteRenderer>();
+        rangeSpriteRenderer.enabled = !rangeSpriteRenderer.enabled;
         GameManager.Instance.UpdateUpgradeTip();
     }
 
@@ -193,7 +195,10 @@ public abstract class Tower : MonoBehaviour
     {
         return "";
     }
-
+    public override void OnClick()
+    {
+        GameManager.Instance.SelectTower(this);
+    }
     private void Shoot()
     {
         Projectile projectile = (Projectile) GameManager.Instance.Pool.GetObject(projectileType).GetComponent<Projectile>();
@@ -216,6 +221,21 @@ public abstract class Tower : MonoBehaviour
             if (other.tag == "enemy")
                 target = null;
         }
+    }
+
+    public override bool CanBeBuiltOn(TileScript tile)
+    {
+        return tile.Attrs.Type != TileAttributes.TileType.WATER;
+    }
+
+    public override bool CanBeBuiltDuringWave()
+    {
+        return false;
+    }
+
+    public override void SetColor(Color newColor)
+    {
+        mySpriteRenderer.color = newColor;
     }
 
     public virtual void Upgrade()

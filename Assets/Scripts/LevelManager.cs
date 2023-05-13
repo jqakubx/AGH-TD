@@ -111,7 +111,7 @@ public class LevelManager : Singleton<LevelManager>
 
     private void SpawnPortals()
     {
-        FirstSpawn = new Point(3, 3);
+        FirstSpawn = new Point(0, 3);
         GameObject tmp = (GameObject) Instantiate(firstPortalPrefab, Tiles[FirstSpawn].GetComponent<TileScript>().WorldPosition,Quaternion.identity);
         FirstPortal = tmp.GetComponent<Portal>();
         FirstPortal.name = "FirstPortal";
@@ -128,5 +128,26 @@ public class LevelManager : Singleton<LevelManager>
     public void GeneratePath()
     {
         path = AStar.GetPath(FirstSpawn, secondSpawn);
+    }
+
+    public List<TileScript> GetNondiagonalNeighboursOf(TileScript tile)
+    {
+        Point tilePoint = tile.GridPosition;
+        List<TileScript> neighbours = new List<TileScript>();
+
+        Point[] cords = {
+            new Point(tilePoint.X + 1, tilePoint.Y), new Point(tilePoint.X - 1, tilePoint.Y),
+            new Point(tilePoint.X, tilePoint.Y + 1), new Point(tilePoint.X, tilePoint.Y - 1),
+        };
+
+        foreach(Point cord in cords)
+        {
+            if (Tiles.ContainsKey(cord))
+            {
+                neighbours.Add(Tiles[cord]);
+            }
+        }
+
+        return neighbours;
     }
 }
