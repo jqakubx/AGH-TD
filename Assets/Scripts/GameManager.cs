@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager>
 
     public event CurrencyChanged Changed;
     
-    public TowerButton ClickedBtn { get; set; }
+    public BuildingButton ClickedBtn { get; set; }
     
     private int currency;
 
@@ -36,6 +36,9 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField]
     private GameObject statsPanel;
+
+    [SerializeField]
+    private GameObject buildPanel;
 
     [SerializeField]
     private Text sellText;
@@ -111,24 +114,25 @@ public class GameManager : Singleton<GameManager>
         HandleEscape();
     }
 
-    public void PickTower(TowerButton towerButton)
+    public void PickBuilding(BuildingButton buildingButton)
     {
-        if (Currency >= towerButton.Price && !WaveManager.Instance.WaveActive)
+        if (Currency >= buildingButton.Price && (!WaveManager.Instance.WaveActive || buildingButton.BuildingTemplate.CanBeBuiltDuringWave()))
         {
-            this.ClickedBtn = towerButton;
-            Hover.Instance.Activate(
-                towerButton.Sprite,
-                towerButton.TowerPrefab.transform.GetChild(0).GetComponent<Tower>().Range
-            );
+            this.ClickedBtn = buildingButton;
+            buildingButton.OnBuildingPicked();
         }
     }
 
-    public void BuyTower()
+    public void BuyBuilding()
     {
         if (Currency >= ClickedBtn.Price)
         {
             Currency -= ClickedBtn.Price;
-            Hover.Instance.Deactivate();
+
+            if (Currency < ClickedBtn.Price)
+            {
+                Hover.Instance.Deactivate();
+            }
         }
     }
 
@@ -144,11 +148,11 @@ public class GameManager : Singleton<GameManager>
     {
         if (selectedTower != null)
         {
-            selectedTower.Select();
+            selectedTower.ToggleSelection();
         }
         
         selectedTower = tower;
-        selectedTower.Select();
+        selectedTower.ToggleSelection();
 
         sellText.text = "+ " + (selectedTower.Price / 2).ToString() + " $";
 
@@ -159,12 +163,17 @@ public class GameManager : Singleton<GameManager>
     {
         if (selectedTower != null)
         {
-            selectedTower.Select();
+            selectedTower.ToggleSelection();
         }
 
         selectedTower = null;
 
         upgradePanel.SetActive(false);
+    }
+
+    public void DeselectSelection()
+    {
+        DeselectTower();
     }
     
     private void HandleEscape()
@@ -264,6 +273,11 @@ public class GameManager : Singleton<GameManager>
 
     public void ShowInGameMenu()
     {
+        if (buildPanel.activeSelf)
+        {
+            ToggleBuildPanel();
+        }
+
         if (optionsMenu.activeSelf)
         {
             ShowMain();
@@ -298,6 +312,11 @@ public class GameManager : Singleton<GameManager>
     {
         inGameMenu.SetActive(true);
         optionsMenu.SetActive(false);
+    }
+
+    public void ToggleBuildPanel()
+    {
+        buildPanel.SetActive(!buildPanel.activeSelf);
     }
 
     public bool IsGamePaused()

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6504729001158571636}
   - component: {fileID: 6504729001158571643}
   - component: {fileID: 6504729001158571642}
+  - component: {fileID: 2002174647586761677}
   m_Layer: 0
   m_Name: Catapult
   m_TagString: Untagged
@@ -107,6 +108,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2002174647586761677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6504729001158571641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e279a08a2594620b84f403f0c9e22c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileType: CatapultProjectile
+  upgradeInfoColorHex: '#00ff00ff'
+  projectileSpeed: 10
+  damage: 5
+  range: 15
+  attackCooldown: 1
 --- !u!1 &6504729001652096764
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +137,7 @@ GameObject:
   - component: {fileID: 6504729001652096765}
   - component: {fileID: 6504729001652096760}
   - component: {fileID: 6504729001652096767}
-  - component: {fileID: 1285077020039572393}
+  - component: {fileID: 3356484448257385923}
   m_Layer: 2
   m_Name: Range
   m_TagString: Untagged
@@ -209,7 +228,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.46
---- !u!114 &1285077020039572393
+--- !u!114 &3356484448257385923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,11 +237,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6504729001652096764}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e279a08a2594620b84f403f0c9e22c0, type: 3}
+  m_Script: {fileID: 11500000, guid: ee2c9a1007401524ebde4eed31a85657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileType: CatapultProjectile
-  projectileSpeed: 10
-  damage: 5
-  range: 15
-  attackCooldown: 1

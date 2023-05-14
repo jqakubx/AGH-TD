@@ -13,13 +13,15 @@ public class TileScript : MonoBehaviour
 
     public bool IsEmpty { get; set; }
 
-    private Tower myTower;
+    private Building myBuilding;
 
     public TileAttributes Attrs { get; private set; }
 
     private SpriteRenderer spriteRenderer;
     
-    private GameObject tower;
+    private GameObject building;
+
+    public Building PlacedBuilding { get => myBuilding; }
 
     public bool Walkable { get => Attrs.Walkable && IsEmpty; }
     
@@ -54,24 +56,26 @@ public class TileScript : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (Attrs.Buildable && !EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedBtn != null)
+        BuildingButton clickedButton = GameManager.Instance.ClickedBtn;
+
+        if (!EventSystem.current.IsPointerOverGameObject() && clickedButton != null && clickedButton.BuildingTemplate.CanBeBuiltOn(this))
         {
             ColorTile(IsEmpty ? Attrs.EmptyColor : Attrs.FullColor);
             
             if (IsEmpty && Input.GetMouseButtonDown(0))
             {
-                PlaceTower();
+                PlaceBuilding();
             }
         }
         else if (!EventSystem.current.IsPointerOverGameObject() && GameManager.Instance.ClickedBtn == null && Input.GetMouseButtonDown(0))
-        {
-            if (myTower != null)
+        {  
+            if (myBuilding != null)
             {
-                GameManager.Instance.SelectTower(myTower);
+                myBuilding.OnClick();
             }
             else
             {
-                GameManager.Instance.DeselectTower();
+                GameManager.Instance.DeselectSelection();
             }
         }
     }
@@ -81,7 +85,7 @@ public class TileScript : MonoBehaviour
         ColorTile(DEFAULT_COLOR);
     }
 
-    private void PlaceTower()
+    private void PlaceBuilding()
     {
         IsEmpty = false;
         if (AStar.GetPath(LevelManager.Instance.FirstSpawn, LevelManager.Instance.SecondSpawn) == null)
@@ -90,18 +94,18 @@ public class TileScript : MonoBehaviour
             return;
         }
 
-        tower = Instantiate(GameManager.Instance.ClickedBtn.TowerPrefab, transform.position, Quaternion.identity);
-        tower.GetComponent<SpriteRenderer>().sortingOrder = GridPosition.Y;
-        
-        tower.transform.SetParent(transform);
+        building = Instantiate(GameManager.Instance.ClickedBtn.BuildingPrefab, transform.position, Quaternion.identity);
+        building.GetComponent<SpriteRenderer>().sortingOrder = GridPosition.Y;
 
-        this.myTower = tower.transform.GetChild(0).GetComponent<Tower>();
-        myTower.Price = GameManager.Instance.ClickedBtn.Price;
+        building.transform.SetParent(transform);
 
-        IsEmpty = false;
+        this.myBuilding = building.transform.GetComponent<Building>();
+        myBuilding.Price = GameManager.Instance.ClickedBtn.Price;
+
         ColorTile(DEFAULT_COLOR);
+        IsEmpty = false;
 
-        GameManager.Instance.BuyTower();
+        GameManager.Instance.BuyBuilding();
     }
 
     private void ColorTile(Color newColor)
@@ -110,7 +114,7 @@ public class TileScript : MonoBehaviour
 
         if (!IsEmpty)
         {
-            tower.GetComponent<SpriteRenderer>().color = newColor;
+            myBuilding.SetColor(newColor);
         }
     }
 }

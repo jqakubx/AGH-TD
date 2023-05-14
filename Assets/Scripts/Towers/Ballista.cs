@@ -14,8 +14,14 @@ public class Ballista : Tower
         };
     }
 
-    public override string GetStats()
+
+    protected override string GetTowerName()
     {
-        return string.Format("<color=#ffa500ff><size=20><b>Ballista</b></size></color>{0}", base.GetStats());
+        return "Ballista";
+    }
+
+    protected override string GetDescription()
+    {
+        return "Medium range and damage, quite fast";
     }
 }
