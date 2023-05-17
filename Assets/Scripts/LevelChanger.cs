@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelChanger : MonoBehaviour
 {
-    public void LoadLevel(string level)
+    public void LoadLevel(int level)
     {
         LevelStateController.level = level;
         SceneManager.LoadScene(2);

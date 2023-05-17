@@ -108,9 +108,9 @@ TextureImporter:
       name: catapult_shot-left_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 224
-        width: 105
+        x: 2
+        y: 225
+        width: 125
         height: 92
       alignment: 1
       pivot: {x: 0, y: 1}
@@ -131,8 +131,8 @@ TextureImporter:
         serializedVersion: 2
         x: 133
         y: 224
-        width: 120
-        height: 82
+        width: 125
+        height: 93
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,7 +153,7 @@ TextureImporter:
         x: 263
         y: 224
         width: 125
-        height: 82
+        height: 93
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,8 +173,8 @@ TextureImporter:
         serializedVersion: 2
         x: 393
         y: 224
-        width: 120
-        height: 82
+        width: 125
+        height: 93
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,8 +194,8 @@ TextureImporter:
         serializedVersion: 2
         x: 523
         y: 224
-        width: 105
-        height: 92
+        width: 111
+        height: 93
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,10 +213,10 @@ TextureImporter:
       name: catapult_shot-left_5
       rect:
         serializedVersion: 2
-        x: 13
+        x: 12
         y: 105
-        width: 105
-        height: 87
+        width: 125
+        height: 105
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -234,10 +234,10 @@ TextureImporter:
       name: catapult_shot-left_6
       rect:
         serializedVersion: 2
-        x: 143
+        x: 144
         y: 105
-        width: 105
-        height: 97
+        width: 125
+        height: 105
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -257,8 +257,8 @@ TextureImporter:
         serializedVersion: 2
         x: 273
         y: 105
-        width: 105
-        height: 102
+        width: 125
+        height: 105
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,7 +278,7 @@ TextureImporter:
         serializedVersion: 2
         x: 403
         y: 105
-        width: 105
+        width: 125
         height: 105
       alignment: 1
       pivot: {x: 0, y: 1}
@@ -297,7 +297,7 @@ TextureImporter:
       name: catapult_shot-left_9
       rect:
         serializedVersion: 2
-        x: 528
+        x: 529
         y: 105
         width: 105
         height: 105
@@ -310,27 +310,6 @@ TextureImporter:
       bones: []
       spriteID: 2e85ab7546dcc864bb42181a6449d4dd
       internalID: 229533663
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: catapult_shot-left_10
-      rect:
-        serializedVersion: 2
-        x: 225
-        y: 43
-        width: 4
-        height: 9
-      alignment: 1
-      pivot: {x: 0, y: 1}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 27756e831d060c245a1e77297dc146c8
-      internalID: -268030235
       vertices: []
       indices: 
       edges: []

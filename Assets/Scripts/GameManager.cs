@@ -105,7 +105,7 @@ public class GameManager : Singleton<GameManager>
     {
         Lives = 3;
         Currency = 30;
-        string levelWavesName = LevelStateController.level + "_waves";
+        string levelWavesName = "Level" + LevelStateController.level + "_waves";
         WaveManager.Instance.LoadLevel(levelWavesName); // TODO handle levels
     }
 
@@ -335,6 +335,20 @@ public class GameManager : Singleton<GameManager>
         {
             gameOver = true;
             levelFinishedMenu.SetActive(true);
+            if (LevelStateController.level == LevelStateController.maxLevel)
+            {
+                Image nextLevelButton = levelFinishedMenu.transform.GetChild(1).GetComponent<Image>();
+                nextLevelButton.color = Color.gray;
+            }
+        }
+    }
+
+    public void nextLevel()
+    {
+        if (LevelStateController.level < LevelStateController.maxLevel)
+        {
+            LevelStateController.level += 1;
+            SceneManager.LoadScene(2);
         }
     }
 }
