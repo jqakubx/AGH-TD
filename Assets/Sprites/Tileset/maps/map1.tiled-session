@@ -1,0 +1,50 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "Icon13.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "map1.tmx": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 511.5,
+                "y": 255.5
+            }
+        },
+        "tf_beach_tileA1.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        },
+        "tf_beach_tileB.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "C:/Users/Jakub/Desktop/Studia/StudiaMagisterskie/1Semestr/TechnologieGier/Projekt/AGH TD/Assets/Sprites/Tileset/Transperent",
+    "map.height": 5,
+    "map.lastUsedFormat": "tmx",
+    "map.width": 5,
+    "openFiles": [
+        "map1.tmx",
+        "tf_beach_tileA1.tsx",
+        "tf_beach_tileB.tsx",
+        "Icon13.tsx"
+    ],
+    "project": "map1.tiled-project",
+    "recentFiles": [
+        "map1.tmx",
+        "tf_beach_tileA1.tsx",
+        "tf_beach_tileB.tsx",
+        "Icon13.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx"
+}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelManager : Singleton<LevelManager>
 {
@@ -63,6 +64,7 @@ public class LevelManager : Singleton<LevelManager>
         
         string[] mapData = ReadLevelTest();
 
+
         mapSize = new Point(mapData[0].ToCharArray().Length, mapData.Length);
 
         int mapXSize = mapData[0].ToCharArray().Length;
@@ -81,10 +83,28 @@ public class LevelManager : Singleton<LevelManager>
         }
         
         maxTile = Tiles[new Point(mapXSize - 1, mapYSize - 1)].transform.position;
-            
+        
+        ImportMapImage();
+
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
         
         SpawnPortals();
+    }
+
+    private void ImportMapImage()
+    {
+        Vector3 worldStart = Camera.main!.ScreenToWorldPoint(new Vector3(0, Screen.height));
+        string levelImagePath = "Level" + LevelStateController.level + "_map";
+        Texture2D  tex = Resources.Load(levelImagePath) as Texture2D;
+        Sprite sprite = Sprite.Create(tex, new Rect(0.0f,0.0f,tex.width,tex.height), new Vector2(0.0f,0.0f), 25.0f);
+        
+        GameObject imageObject = new GameObject("MapImage");
+        SpriteRenderer renderer = imageObject.AddComponent<SpriteRenderer>();
+        renderer.sprite = sprite;
+        renderer.sortingOrder = -4;
+        
+        Vector3 bottomLeftPosition = new Vector3(0f, -tex.height + 57f, 10f);
+        imageObject.transform.position = Camera.main.ScreenToWorldPoint(bottomLeftPosition);
     }
 
     private void PlaceTile(string tileType, int x, int y , Vector3 worldStartPosition)
@@ -102,7 +122,8 @@ public class LevelManager : Singleton<LevelManager>
 
     private string[] ReadLevelTest()
     {
-        TextAsset bindData = Resources.Load(LevelStateController.level) as TextAsset;
+        string level = "Level" + LevelStateController.level;
+        TextAsset bindData = Resources.Load(level) as TextAsset;
 
         string data = bindData!.text.Replace(Environment.NewLine, string.Empty);
 
@@ -111,12 +132,12 @@ public class LevelManager : Singleton<LevelManager>
 
     private void SpawnPortals()
     {
-        FirstSpawn = new Point(0, 3);
+        FirstSpawn = new Point(2, 2);
         GameObject tmp = (GameObject) Instantiate(firstPortalPrefab, Tiles[FirstSpawn].GetComponent<TileScript>().WorldPosition,Quaternion.identity);
         FirstPortal = tmp.GetComponent<Portal>();
         FirstPortal.name = "FirstPortal";
         
-        SecondSpawn = new Point(14, 5);
+        SecondSpawn = new Point(18, 9);
         Instantiate(secondPortalPrefab, Tiles[secondSpawn].GetComponent<TileScript>().WorldPosition,Quaternion.identity);
     }
         

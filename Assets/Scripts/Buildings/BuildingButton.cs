@@ -11,6 +11,9 @@ public class BuildingButton : MonoBehaviour
 
     [SerializeField]
     private Sprite sprite;
+    
+    [SerializeField]
+    private Sprite icon;
 
     [SerializeField]
     private int price;
@@ -35,6 +38,14 @@ public class BuildingButton : MonoBehaviour
         get
         {
             return sprite;
+        }
+    }
+    
+    public Sprite Icon
+    {
+        get
+        {
+            return icon;
         }
     }
 
@@ -67,7 +78,7 @@ public class BuildingButton : MonoBehaviour
 
     public virtual void OnBuildingPicked()
     {
-        Hover.Instance.Activate(Sprite, 0);
+        Hover.Instance.Activate(Icon, 0);
         GameManager.Instance.ToggleBuildPanel();
     }
 }
