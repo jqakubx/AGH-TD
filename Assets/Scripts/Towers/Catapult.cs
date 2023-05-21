@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Catapult : Tower
 {
+    public static readonly string TAG = "catapult";
+
     // Start is called before the first frame update
     private new void Start()
     {
@@ -23,5 +25,10 @@ public class Catapult : Tower
     protected override string GetDescription()
     {
         return "High range and damage but slow";
+    }
+
+    public override string GetTag()
+    {
+        return TAG;
     }
 }

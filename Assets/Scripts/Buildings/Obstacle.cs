@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Obstacle : Building
 {
+    public static readonly string TAG = "obstacle";
+
     public override bool CanBeBuiltOn(TileScript tile)
     {
         if (!tile.Walkable) return false;
@@ -29,5 +31,10 @@ public class Obstacle : Building
     public override bool CanBeBuiltDuringWave()
     {
         return false;
+    }
+
+    public override string GetTag()
+    {
+        return TAG;
     }
 }

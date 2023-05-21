@@ -54,6 +54,10 @@ public abstract class Tower : Building
         {
             return damage;
         }
+        set
+        {
+            damage = value;
+        }
     }
 
     private Queue<EnemyShip> enemies = new Queue<EnemyShip>();
