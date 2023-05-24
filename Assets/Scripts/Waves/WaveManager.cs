@@ -4,10 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 
+public delegate void WaveFinished();
 
 public class WaveManager : Singleton<WaveManager>
 {
     private int wave = 0;
+
+    public event WaveFinished onWaveFinished;
+
     private List<Wave> currentLevelWaves;
 
     [SerializeField]
@@ -16,9 +20,13 @@ public class WaveManager : Singleton<WaveManager>
     List<EnemyShip> activeEnemies = new List<EnemyShip>();
 
     [SerializeField]
-    private GameObject waveBtn;
+    private GameObject waveButtonsPanel;
 
     private Wave CurrentWave { get => currentLevelWaves[wave - 1]; }
+
+    public int RemainingWavesCount { get => currentLevelWaves.Count - wave; }
+
+    public int EnemiesInNextWaveCount { get => currentLevelWaves[wave + 1].spawnInfos.Count; }
 
     public bool WaveActive
     {
@@ -33,7 +41,7 @@ public class WaveManager : Singleton<WaveManager>
         wave++;
         waveTxt.text = string.Format("Wave: <color=#FFD700>{0}</color>", wave);
         StartCoroutine(SpawnWave());
-        waveBtn.SetActive(false);
+        waveButtonsPanel.SetActive(false);
     }
 
     private IEnumerator SpawnWave()
@@ -56,13 +64,18 @@ public class WaveManager : Singleton<WaveManager>
         if (!WaveActive && GameManager.Instance.canShowNewWaveButton())
         {
             GameManager.Instance.Currency += CurrentWave.waveReward;
+            
+            if (onWaveFinished != null)
+            {
+                onWaveFinished();
+            }
 
             if (wave >= currentLevelWaves.Count)
             {
                 GameManager.Instance.finishGame();
             } else
             {
-                waveBtn.SetActive(true);
+                waveButtonsPanel.SetActive(true);
             }
         }
     }
@@ -71,6 +84,6 @@ public class WaveManager : Singleton<WaveManager>
     {
         TextAsset wavesJson = Resources.Load<TextAsset>(wavesFileName);
         currentLevelWaves = JsonConvert.DeserializeObject<List<Wave>>(wavesJson.ToString());
-        waveBtn.SetActive(true);
+        waveButtonsPanel.SetActive(true);
     }
 }

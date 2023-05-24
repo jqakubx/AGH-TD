@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Linq;
 
 public delegate void CurrencyChanged();
 
@@ -57,6 +58,8 @@ public class GameManager : Singleton<GameManager>
 
     private Tower selectedTower;
 
+    private List<Building> buildings;
+
     public ObjectPool Pool { get; set; }
 
     public int Currency
@@ -99,6 +102,7 @@ public class GameManager : Singleton<GameManager>
     private void Awake()
     {
         Pool = GetComponent<ObjectPool>();
+        buildings = new List<Building>();
     }
 
     void Start()
@@ -123,11 +127,12 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void BuyBuilding()
+    public void BuyBuilding(Building building)
     {
         if (Currency >= ClickedBtn.Price)
         {
             Currency -= ClickedBtn.Price;
+            buildings.Add(building);
 
             if (Currency < ClickedBtn.Price)
             {
@@ -228,9 +233,22 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void HideStats()
+    {
+        statsPanel.SetActive(false);
+    }
+
     public void ShowStats()
     {
-        statsPanel.SetActive(!statsPanel.activeSelf);
+        if (!DiceManager.Instance.IsDisplayingEffects())
+        {
+            statsPanel.SetActive(true);
+        }
+    }
+
+    public bool IsShowingStats()
+    {
+        return statsPanel.activeSelf;
     }
 
     public void SetTooltipText(string txt)
@@ -351,4 +369,25 @@ public class GameManager : Singleton<GameManager>
             SceneManager.LoadScene(2);
         }
     }
+
+    public List<Building> GetBuildingsWithTag(string tag)
+    {
+        List<Building> result = new List<Building>();
+
+        foreach(var building in buildings)
+        {
+            if (building.GetTag() == tag)
+            {
+                result.Add(building);
+            }
+        }
+
+        return result;
+    }
+
+    public List<Tower> GetTowersWithTag(string tag)
+    {
+        return GetBuildingsWithTag(tag).Cast<Tower>().ToList();
+    }
+
 }

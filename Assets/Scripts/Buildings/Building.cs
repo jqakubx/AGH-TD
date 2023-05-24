@@ -16,4 +16,6 @@ public abstract class Building : MonoBehaviour
     public abstract bool CanBeBuiltDuringWave();
 
     public abstract void SetColor(Color newColor);
+
+    public abstract string GetTag();
 }

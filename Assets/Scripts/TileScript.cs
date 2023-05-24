@@ -99,13 +99,13 @@ public class TileScript : MonoBehaviour
 
         building.transform.SetParent(transform);
 
-        this.myBuilding = building.transform.GetComponent<Building>();
+        myBuilding = building.transform.GetComponent<Building>();
         myBuilding.Price = GameManager.Instance.ClickedBtn.Price;
 
         ColorTile(DEFAULT_COLOR);
         IsEmpty = false;
 
-        GameManager.Instance.BuyBuilding();
+        GameManager.Instance.BuyBuilding(myBuilding);
     }
 
     private void ColorTile(Color newColor)

@@ -103,7 +103,8 @@ public class LevelManager : Singleton<LevelManager>
         renderer.sprite = sprite;
         renderer.sortingOrder = -4;
         
-        Vector3 bottomLeftPosition = new Vector3(0f, -tex.height + 57f, 10f);
+        // This value is different for free aspect and fullHD
+        Vector3 bottomLeftPosition = new Vector3(0f, -tex.height - 620f, 10f);
         imageObject.transform.position = Camera.main.ScreenToWorldPoint(bottomLeftPosition);
     }
 
