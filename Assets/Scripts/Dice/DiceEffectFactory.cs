@@ -46,7 +46,7 @@ public class DiceEffectFactory
         return new System.Func<int, DiceEffect>[]
         {
             (rollResult) => MoneyEffect.Loss(System.Math.Min(GameManager.Instance.Currency, 10)),
-            catapultDamageDebuff(-5)
+            catapultDamageDebuff(-3)
         };
     }
 
@@ -55,7 +55,7 @@ public class DiceEffectFactory
         return new System.Func<int, DiceEffect>[]
         {
             (rollResult) => MoneyEffect.Bonus(10),
-            catapultDamageBuff(5)
+            catapultDamageBuff(3)
         };
     }
 
