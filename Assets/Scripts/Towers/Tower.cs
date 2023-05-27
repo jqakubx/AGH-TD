@@ -37,7 +37,7 @@ public abstract class Tower : Building
     
     private SpriteRenderer mySpriteRenderer;
 
-    public GameObject rangeGameObject;
+    private GameObject rangeGameObject;
 
     private EnemyShip target;
 
@@ -210,7 +210,7 @@ public abstract class Tower : Building
         
         foreach(var ship in enemies)
         {
-            Point diff = closestShip.GridPosition - goalPosition;
+            Point diff = ship.GridPosition - goalPosition;
             if (diff.X * diff.X + diff.Y * diff.Y < bestDiff.X * bestDiff.X + bestDiff.Y * bestDiff.Y)
             {
                 closestShip = ship;
