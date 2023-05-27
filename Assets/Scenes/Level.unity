@@ -627,7 +627,7 @@ MonoBehaviour:
   buildingPrefab: {fileID: 4720733207193575715, guid: e696fd37b3dc7904391f8c808cafa9d2, type: 3}
   sprite: {fileID: 890543041, guid: a014924c724292b418620ed9ad78b7af, type: 3}
   icon: {fileID: 0}
-  price: 4
+  price: 5
   priceTxt: {fileID: 658625287}
 --- !u!114 &139644935
 MonoBehaviour:
@@ -2554,7 +2554,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 4 $
+  m_Text: 5 $
 --- !u!222 &658625288
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3439,7 +3439,7 @@ MonoBehaviour:
   buildingPrefab: {fileID: 6504729001158571641, guid: 4274c22e8eecadb4db4775ce7c195782, type: 3}
   sprite: {fileID: 152017535, guid: 9b048f0c9d844d845a6ca1db76bb4c02, type: 3}
   icon: {fileID: 0}
-  price: 3
+  price: 6
   priceTxt: {fileID: 1624798320}
 --- !u!114 &807500001
 MonoBehaviour:
@@ -6673,7 +6673,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 3 $
+  m_Text: 6 $
 --- !u!222 &1624798321
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7984,6 +7984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveTxt: {fileID: 179715264}
   waveButtonsPanel: {fileID: 279350437}
+  allSpawned: 0
 --- !u!4 &1931564716
 Transform:
   m_ObjectHideFlags: 0

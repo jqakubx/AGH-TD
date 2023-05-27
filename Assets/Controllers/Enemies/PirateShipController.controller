@@ -338,11 +338,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Death
-<<<<<<< Updated upstream
-  m_Speed: 0.25
-=======
   m_Speed: 0.5
->>>>>>> Stashed changes
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 5394769683926297128}
