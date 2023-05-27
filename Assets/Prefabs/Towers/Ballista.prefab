@@ -237,6 +237,6 @@ MonoBehaviour:
   projectileType: NetProjectile
   upgradeInfoColorHex: '#00ff00ff'
   projectileSpeed: 12
-  damage: 4
-  range: 8
-  attackCooldown: 1.5
+  damage: 3
+  range: 12
+  attackCooldown: 0.5

@@ -9,8 +9,8 @@ public class Ballista : Tower
         base.Start();
         Upgrades = new TowerUpgrade[]
         {
-            new TowerUpgrade(6, 4, 0.1f, 1.1f),
-            new TowerUpgrade(8, 5, 0.05f, 1.2f),
+            new TowerUpgrade(9, 4, 0.15f, 1.1f),
+            new TowerUpgrade(13, 5, 0.1f, 1.2f),
         };
     }
 

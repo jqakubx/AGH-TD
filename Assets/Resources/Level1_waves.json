@@ -5,17 +5,17 @@
 		"spawnInfos": [
 			{
 				"enemyType": "FirstEnemy",
-				"spawnCooldown": 2,
+				"spawnCooldown": 1,
 				"extraParams": {}
 			},
 			{
 				"enemyType": "PirateShip",
-				"spawnCooldown": 3,
+				"spawnCooldown": 1,
 				"extraParams": {}
 			},
 			{
 				"enemyType": "PirateShip",
-				"spawnCooldown": 5,
+				"spawnCooldown": 1,
 				"extraParams": {}
 			}
 		]
@@ -31,14 +31,30 @@
 			},
 			{
 				"enemyType": "FirstEnemy",
+				"spawnCooldown": 2,
+				"extraParams": {}
+			},
+			{
+				"enemyType": "PirateShip",
 				"spawnCooldown": 1,
 				"extraParams": {}
 			},
 			{
-				"enemyType": "FirstEnemy",
+				"enemyType": "PirateShip",
 				"spawnCooldown": 1,
 				"extraParams": {}
 			},
+			{
+				"enemyType": "PirateShip",
+				"spawnCooldown": 1,
+				"extraParams": {}
+			}
+		]
+	},
+	{
+		"wave": 3,
+		"waveReward": 15,
+		"spawnInfos": [
 			{
 				"enemyType": "FirstEnemy",
 				"spawnCooldown": 1,
@@ -49,6 +65,36 @@
 				"spawnCooldown": 2,
 				"extraParams": {}
 			},
+			{
+				"enemyType": "PirateShip",
+				"spawnCooldown": 1,
+				"extraParams": {}
+			},
+			{
+				"enemyType": "PirateShip",
+				"spawnCooldown": 1,
+				"extraParams": {}
+			},
+			{
+				"enemyType": "PirateShip",
+				"spawnCooldown": 1,
+				"extraParams": {}
+			},
+			{
+				"enemyType": "PirateShip",
+				"spawnCooldown": 1,
+				"extraParams": {}
+			},
+			{
+				"enemyType": "PirateShip",
+				"spawnCooldown": 1,
+				"extraParams": {}
+			},
+			{
+				"enemyType": "StrongPirateShip",
+				"spawnCooldown": 2,
+				"extraParams": {}
+			}
 		]
 	}
 ]

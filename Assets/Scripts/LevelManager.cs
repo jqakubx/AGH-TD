@@ -84,16 +84,15 @@ public class LevelManager : Singleton<LevelManager>
         
         maxTile = Tiles[new Point(mapXSize - 1, mapYSize - 1)].transform.position;
         
-        ImportMapImage();
+        ImportMapImage(mapYSize);
 
         cameraMovement.SetLimits(new Vector3(maxTile.x + TileSize, maxTile.y - TileSize));
         
         SpawnPortals();
     }
 
-    private void ImportMapImage()
+    private void ImportMapImage(int mapYSize)
     {
-        Vector3 worldStart = Camera.main!.ScreenToWorldPoint(new Vector3(0, Screen.height));
         string levelImagePath = "Level" + LevelStateController.level + "_map";
         Texture2D  tex = Resources.Load(levelImagePath) as Texture2D;
         Sprite sprite = Sprite.Create(tex, new Rect(0.0f,0.0f,tex.width,tex.height), new Vector2(0.0f,0.0f), 25.0f);
@@ -103,8 +102,8 @@ public class LevelManager : Singleton<LevelManager>
         renderer.sprite = sprite;
         renderer.sortingOrder = -4;
         
-        Vector3 bottomLeftPosition = new Vector3(0f, -tex.height + 57f, 10f);
-        imageObject.transform.position = Camera.main.ScreenToWorldPoint(bottomLeftPosition);
+        Vector3 bottomLeftPosition = new Vector3(0f, -mapYSize * 71.0f, 10f);
+        imageObject.transform.position = Camera.main!.ScreenToWorldPoint(bottomLeftPosition);
     }
 
     private void PlaceTile(string tileType, int x, int y , Vector3 worldStartPosition)
@@ -137,7 +136,7 @@ public class LevelManager : Singleton<LevelManager>
         FirstPortal = tmp.GetComponent<Portal>();
         FirstPortal.name = "FirstPortal";
         
-        SecondSpawn = new Point(18, 9);
+        SecondSpawn = new Point(27, 9);
         Instantiate(secondPortalPrefab, Tiles[secondSpawn].GetComponent<TileScript>().WorldPosition,Quaternion.identity);
     }
         

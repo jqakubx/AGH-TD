@@ -125,7 +125,7 @@ MonoBehaviour:
   projectileSpeed: 10
   damage: 5
   range: 15
-  attackCooldown: 1
+  attackCooldown: 2
 --- !u!1 &6504729001652096764
 GameObject:
   m_ObjectHideFlags: 0

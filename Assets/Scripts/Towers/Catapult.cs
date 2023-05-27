@@ -10,8 +10,8 @@ public class Catapult : Tower
         base.Start();
         Upgrades = new TowerUpgrade[]
         {
-            new TowerUpgrade(8, 5, 0.15f, 1.1f),
-            new TowerUpgrade(12, 6, 0.1f, 1.1f),
+            new TowerUpgrade(10, 5, 0.05f, 1.1f),
+            new TowerUpgrade(15, 6, 0.05f, 1.1f),
         };
     }
 
