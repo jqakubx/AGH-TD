@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Ballista : Tower
 {
+    public static readonly string TAG = "ballista";
+
     private new void Start()
     {
         base.Start();
@@ -23,5 +25,10 @@ public class Ballista : Tower
     protected override string GetDescription()
     {
         return "Medium range and damage, quite fast";
+    }
+
+    public override string GetTag()
+    {
+        return TAG;
     }
 }
