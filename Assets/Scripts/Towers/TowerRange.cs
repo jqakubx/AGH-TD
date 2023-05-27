@@ -20,4 +20,9 @@ public class TowerRange : MonoBehaviour
     {
         parent.OnTriggerExit2D(other);
     }
+
+    public void OnTriggerStay2D(Collider2D other)
+    {
+        parent.OnTriggerStay2D(other);
+    }
 }

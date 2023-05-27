@@ -43,11 +43,6 @@ public abstract class Tower : Building
 
     public int Level { get; protected set; }
 
-    public EnemyShip Target
-    {
-        get { return target; }
-    }
-
     public int Damage
     {
         get
@@ -60,7 +55,7 @@ public abstract class Tower : Building
         }
     }
 
-    private Queue<EnemyShip> enemies = new Queue<EnemyShip>();
+    private List<EnemyShip> enemies = new List<EnemyShip>();
 
     private bool canAttack = true;
 
@@ -124,35 +119,29 @@ public abstract class Tower : Building
                 attackTimer = 0;
             }
         }
-        
-        if (target == null && enemies.Count > 0 && enemies.Peek().IsActive)
-        {
-            target = enemies.Dequeue();
-        }
 
-        if (target != null && target.IsActive)
+        if (!canAttack)
+            return;
+
+        removeDeadOrInactiveEnemies();
+        target = findTargetClosestToGoal();
+
+        if (target != null)
         {
-            if (canAttack)
+            if (transform.position.x > target.transform.position.x)
             {
-                if (transform.position.x > target.transform.position.x)
-                {
-                    myAnimator.SetInteger("Horizontal", 0);
-                }
-                else
-                {
-                    myAnimator.SetInteger("Horizontal", 1);
-                }
-                
-                Shoot();
-                
-                myAnimator.SetTrigger("Attack");
-                
-                canAttack = false;
+                myAnimator.SetInteger("Horizontal", 0);
             }
-        }
-        if (target != null && !target.Alive || target != null && !target.IsActive)
-        {
-            target = null;
+            else
+            {
+                myAnimator.SetInteger("Horizontal", 1);
+            }
+
+            Shoot(target);
+
+            myAnimator.SetTrigger("Attack");
+
+            canAttack = false;
         }
     }
 
@@ -203,27 +192,65 @@ public abstract class Tower : Building
     {
         GameManager.Instance.SelectTower(this);
     }
-    private void Shoot()
+    private void Shoot(EnemyShip target)
     {
         Projectile projectile = (Projectile) GameManager.Instance.Pool.GetObject(projectileType).GetComponent<Projectile>();
         projectile.transform.position = transform.position;
-        projectile.Initialize(this);
+        projectile.Initialize(this, target);
+    }
+
+    private EnemyShip findTargetClosestToGoal()
+    {
+        if (enemies.Count == 0)
+            return null;
+
+        Point goalPosition = LevelManager.Instance.SecondSpawn;
+        EnemyShip closestShip = enemies[0];
+        Point bestDiff = closestShip.GridPosition - goalPosition;
+        
+        foreach(var ship in enemies)
+        {
+            Point diff = ship.GridPosition - goalPosition;
+            if (diff.X * diff.X + diff.Y * diff.Y < bestDiff.X * bestDiff.X + bestDiff.Y * bestDiff.Y)
+            {
+                closestShip = ship;
+                bestDiff = diff;
+            }
+        }
+
+        return closestShip;
+    }
+
+    private void removeDeadOrInactiveEnemies()
+    {
+        enemies.RemoveAll(ship => !ship.Alive || !ship.IsActive);
     }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "enemy")
         {
-            enemies.Enqueue(other.GetComponent<EnemyShip>());
+            enemies.Add(other.GetComponent<EnemyShip>());
         }
     }
 
     public void OnTriggerExit2D(Collider2D other)
     {
-        if (target != null)
+        if (other.tag == "enemy")
         {
-            if (other.tag == "enemy")
-                target = null;
+            enemies.Remove(other.GetComponent<EnemyShip>());
+        }   
+    }
+
+    public void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.tag == "enemy")
+        {
+            // TODO if enemy spawned in range of a tower OnTriggerEnter didn't work and tower
+            // didn't shoot that ship, this is not-the-most-efficient fix
+            var ship = other.GetComponent<EnemyShip>();
+            if (ship.Alive && ship.IsActive && !enemies.Contains(ship)) 
+                enemies.Add(ship);
         }
     }
 
@@ -234,7 +261,7 @@ public abstract class Tower : Building
 
     public override bool CanBeBuiltDuringWave()
     {
-        return false;
+        return true;
     }
 
     public override void SetColor(Color newColor)

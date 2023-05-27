@@ -26,9 +26,9 @@ public class Projectile : MonoBehaviour
         MoveToTarget();
     }
 
-    public void Initialize(Tower parent)
+    public void Initialize(Tower parent, EnemyShip target)
     {
-        this.target = parent.Target;
+        this.target = target;
         this.parent = parent;
         lastTargetPostion = this.target.transform.position;
     }

@@ -159,7 +159,7 @@ public class GameManager : Singleton<GameManager>
         selectedTower = tower;
         selectedTower.ToggleSelection();
 
-        sellText.text = "+ " + (selectedTower.Price / 2).ToString() + " $";
+        sellText.text = "Sell + " + (selectedTower.Price / 2).ToString() + " $";
 
         upgradePanel.SetActive(true);
     }
@@ -267,12 +267,12 @@ public class GameManager : Singleton<GameManager>
     {
         if (selectedTower != null)
         {
-            sellText.text = "+ " + (selectedTower.Price / 2).ToString() + " $";
+            sellText.text = "Sell + " + (selectedTower.Price / 2).ToString() + " $";
             SetTooltipText(selectedTower.GetStats());
             
             if (selectedTower.NextUpgrade != null)
             {
-                upgradePrice.text = selectedTower.NextUpgrade.Price.ToString() + " $";
+                upgradePrice.text = "Upgrade " + selectedTower.NextUpgrade.Price.ToString() + " $";
             }
             else
             {

@@ -28,6 +28,8 @@ public class WaveManager : Singleton<WaveManager>
 
     public int EnemiesInNextWaveCount { get => currentLevelWaves[wave + 1].spawnInfos.Count; }
 
+    public bool allSpawned;
+    
     public bool WaveActive
     {
         get
@@ -36,8 +38,17 @@ public class WaveManager : Singleton<WaveManager>
         }
     }
 
+    public bool AllSpawned
+    {
+        get
+        {
+            return allSpawned;
+        }
+    }
+
     public void StartWave()
     {
+        allSpawned = false;
         wave++;
         waveTxt.text = string.Format("Wave: <color=#FFD700>{0}</color>", wave);
         StartCoroutine(SpawnWave());
@@ -56,12 +67,14 @@ public class WaveManager : Singleton<WaveManager>
 
             yield return new WaitForSeconds(spawnInfo.spawnCooldown);
         }
+
+        allSpawned = true;
     }
 
     public void RemoveEnemy(EnemyShip enemy)
     {
         activeEnemies.Remove(enemy);
-        if (!WaveActive && GameManager.Instance.canShowNewWaveButton())
+        if (!WaveActive && AllSpawned && GameManager.Instance.canShowNewWaveButton())
         {
             GameManager.Instance.Currency += CurrentWave.waveReward;
             
